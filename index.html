@@ -1,0 +1,1042 @@
+ 
+ <!DOCTYPE html>
+<html lang="bn">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ঐতিহাসিক স্মারক</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Atma:wght@400;600;700&family=Galada&family=Hind+Siliguri:wght@400;500;600&family=Lohit+Bengali&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<style>
+    .pattern-top {
+      background-image: url('https://www.svgrepo.com/show/370176/islamic-border.svg');
+      background-repeat: repeat-x;
+      background-size: contain;
+    }
+  </style>
+  <style>
+    /* General Styles */
+    body {
+      background-color: #4a3b32; color: #d8c8b8; font-family: 'Galada', cursive;
+      font-size: 1.1rem; line-height: 1.8;
+      background-image:
+        linear-gradient(45deg, rgba(0,0,0,0.02) 25%, transparent 25%, transparent 75%, rgba(0,0,0,0.02) 75%, rgba(0,0,0,0.02)),
+        linear-gradient(45deg, rgba(0,0,0,0.02) 25%, transparent 25%, transparent 75%, rgba(0,0,0,0.02) 75%, rgba(0,0,0,0.02)),
+        radial-gradient(circle at center, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0) 70%);
+      background-size: 30px 30px, 30px 30px, 100% 100%;
+      background-position: 0 0, 15px 15px, 0 0;
+      overflow-x: hidden;
+    }
+    #topNavBarLogo {
+        background-color: rgba(50, 30, 20, 0.94) !important;
+        border-bottom: 2px solid rgba(180, 140, 100, 0.6) !important;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.5rem 1rem;
+        position: relative;
+    }
+    #siteLogoAndTitle { display: flex; align-items: center; }
+    #siteLogo { height: 2.5rem; margin-right: 0.75rem; }
+    #siteTitle { font-family: 'Galada', cursive; font-size: 1.875rem; color: #FFD700; font-weight: 700; text-shadow: 1px 1px 2px rgba(0,0,0,0.5); }
+
+    #topNavBellButton { color: #FFD700; padding: 0.5rem; border-radius: 9999px; transition: color 0.2s ease-in-out, background-color 0.2s ease-in-out, transform 0.1s ease-out; position: relative; }
+    #topNavBellButton:hover { color: #FFFACD; background-color: rgba(255, 255, 255, 0.1); }
+    #topNavBellButton:focus { outline: none; box-shadow: 0 0 0 2px rgba(255, 215, 0, 0.5); }
+    #topNavBellButton:active i[data-lucide] { animation: ringBell 0.6s ease-in-out; }
+    #notificationBadge { position: absolute; top: 2px; right: 2px; height: 0.75rem; width: 0.75rem; border-radius: 9999px; background-color: #dc2626; border: 2px solid white; }
+
+    nav#mainNav { background-color: rgba(50, 30, 20, 0.94) !important; backdrop-filter: blur(5px); box-shadow: 0 3px 12px rgba(0,0,0,0.35); transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out; }
+    nav#mainNav.hidden-nav { transform: translateY(-100%); opacity: 0.85; pointer-events: none; }
+    #empireFilterBar { border-bottom: 2px solid rgba(180, 140, 100, 0.6) !important; transition: top 0.3s ease-in-out; }
+    #empireFilterBar.top-nav-hidden { top: 0 !important; }
+    #empireFilterBar .nav-button-container { display: flex; align-items: center; gap: 0.75rem; padding: 0.5rem 1rem; }
+    #empireFilterBar .nav-button { font-family: 'Galada', cursive !important; font-size: 1.25rem !important; letter-spacing: 0.5px; color: #e0c8a0 !important; text-shadow: 1px 1px 1px rgba(0,0,0,0.6); transition: all 0.25s ease, transform 0.1s ease-out; display: inline-flex; align-items: center; justify-content: center; line-height: 1.4; border-radius: 25px 8px 25px 8px; padding: 0.4rem 1.2rem !important; border: 1px solid rgba(180, 140, 100, 0.5); box-shadow: 1px 1px 4px rgba(0,0,0,0.25); white-space: nowrap; }
+    #empireFilterBar .nav-button:hover { color: #FFEFB5 !important; transform: scale(1.04) translateY(-1px); box-shadow: 0px 3px 7px rgba(0,0,0,0.45); border-color: rgba(255,215,0,0.6) !important; filter: brightness(1.15); }
+    #empireFilterBar .nav-button:active { transform: scale(0.96) translateY(0px); }
+    .nav-button.all { background-color: rgba(107, 91, 75, 0.85) !important; } /* Other .nav-button empire specific colors */
+    .nav-button.khilafat { background-color: rgba(85, 107, 47, 0.85) !important; }
+    .nav-button.ayyubi { background-color: rgba(139, 69, 19, 0.85) !important; }
+    .nav-button.usmani { background-color: rgba(128, 0, 0, 0.85) !important; }
+    .nav-button.ghori { background-color: rgba(112, 66, 20, 0.85) !important; }
+    .nav-button.mughal { background-color: rgba(0, 66, 37, 0.85) !important; }
+    .nav-button.seljuk { background-color: rgba(70, 130, 180, 0.85) !important; }
+    .nav-button.mamluk { background-color: rgba(218, 165, 32, 0.85) !important; }
+
+    #searchBarContainer { background-color: rgba(50, 30, 20, 0.94) !important; border-bottom: 2px solid rgba(180, 140, 100, 0.6) !important; box-shadow: 0 3px 12px rgba(0,0,0,0.35); transition: top 0.3s ease-in-out; }
+    #searchBarContainer.top-nav-hidden { top: 0 !important; }
+    #searchInput { font-family: 'Galada', cursive !important; font-size: 1.25rem !important; letter-spacing: 0.5px; background-color: rgba(224, 216, 204, 0.85) !important; color: #4a2a1a !important; border: 1px solid rgba(160, 128, 96, 0.75) !important; border-radius: 4px; padding: 0.5rem 0.8rem !important; line-height: 1.4; }
+    #searchInput::placeholder { color: #8a6a4a; opacity: 0.7; }
+    #searchBarContainer button.refresh-button { font-family: 'Galada', cursive !important; font-size: 1.25rem !important; background-color: #8B4513 !important; color: #FFD700 !important; border-radius: 4px; padding: 0.5rem 1rem !important; line-height: 1.4; transition: background-color 0.2s ease, transform 0.1s ease-out; }
+    #searchBarContainer button.refresh-button:active { transform: scale(0.95); background-color: #a0522d !important; }
+
+    /* --- DEFAULT THEME (ঐতিহ্যবাহী ফলক) --- */
+    .profile-plaque-container {
+      background-color: #d8c8b8; border: 1px solid #a07040;
+      box-shadow: inset 0 0 0 3px #805020, inset 0 0 0 6px #c0a070, inset 0 0 30px rgba(0,0,0,0.3), 5px 5px 15px rgba(0,0,0,0.4), 0 3px 3px -3px #503010, 0 -3px 3px -3px #503010, 3px 0 3px -3px #503010, -3px 0 3px -3px #503010;
+      border-radius: 6px; transition: all 0.3s ease-out, background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+      overflow: visible; position: relative; padding: 20px 25px; color: #4a2a1a;
+    }
+    .profile-plaque-container:hover { transform: translateY(-4px) rotate(0.3deg); box-shadow: inset 0 0 0 3px #805020, inset 0 0 0 6px #c0a070, inset 0 0 35px rgba(0,0,0,0.35), 8px 8px 20px rgba(0,0,0,0.5), 0 4px 4px -3px #503010, 0 -4px 4px -3px #503010, 4px 0 4px -3px #503010, -4px 0 4px -3px #503010; }
+    .profile-plaque-container .profile-photo-pinned-section { display: flex; align-items: center; margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid #a07040; position: relative; }
+    .profile-plaque-container .profile-photo-wrapper-tilted { width: 100px; height: 120px; border: 3px solid #604020; background-color: #f0e8e0; box-shadow: inset 1px 1px 3px rgba(0,0,0,0.2), 3px 3px 6px rgba(0,0,0,0.3); overflow: hidden; border-radius: 2px; position: relative; margin-right: 25px; transform: rotate(-4deg); transition: transform 0.3s ease; }
+    .profile-plaque-container:hover .profile-photo-wrapper-tilted { transform: rotate(-2.5deg) scale(1.03); }
+    .profile-plaque-container .profile-photo-wrapper-tilted img { width: 100%; height: 100%; object-fit: cover; filter: sepia(0.4) contrast(1.05) brightness(0.98) saturate(0.9); }
+    .profile-plaque-container .profile-photo-wrapper-tilted::before { content: ''; position: absolute; top: -7px; left: 50%; transform: translateX(-50%) rotate(22deg); width: 15px; height: 15px; background-color: #705030; border-radius: 50%; border: 1px solid #403020; box-shadow: inset 1px 1px 1px rgba(255,255,255,0.1), 1px 1px 2px rgba(0,0,0,0.4); z-index: 5; }
+    .profile-plaque-container .profile-identity-details { flex-grow: 1; }
+    .profile-plaque-container .profile-main-title { font-family: 'Atma', cursive !important; font-size: 2.1rem !important; color: #402010; font-weight: 700; line-height: 1.15; margin-bottom: 5px; }
+    .profile-plaque-container .profile-ruling-years, .profile-plaque-container .reign-period-text-card { font-family: 'Galada', cursive !important; font-size: 1.15rem !important; color: #705030; display: flex; align-items: center; gap: 4px; }
+    .profile-plaque-container .reign-period-text-card { font-size: 1.05rem !important; }
+    .profile-plaque-container .profile-ruling-years i[data-lucide], .profile-plaque-container .reign-period-text-card i[data-lucide] { width: 16px !important; height: 16px !important; min-width: 16px !important; min-height: 16px !important; color: #705030 !important; margin-top: 2px; flex-shrink: 0; }
+    .profile-plaque-container .tag-badge-group { margin-bottom: 15px; }
+    .profile-plaque-container .tag-badge-item { font-family: 'Atma', cursive !important; font-size: 0.9rem !important; padding: 6px 12px 6px 18px; border-radius: 0 20px 20px 0 / 0 50% 50% 0; letter-spacing: 0.3px; box-shadow: 1px 1px 3px rgba(0,0,0,0.15); border: 1px solid rgba(0,0,0,0.2); display: inline-flex; align-items: center; gap: 6px; margin: 4px; transition: all 0.2s ease; position: relative; height: 34px; }
+    .profile-plaque-container .tag-badge-item::before { content: ""; position: absolute; top: 0; left: 0px; width: 0; height: 0; border-style: solid; border-width: 17px 0 17px 12px; border-color: transparent transparent transparent #d8c8b8; }
+    .profile-plaque-container .tag-badge-item:hover { transform: translateY(-1px) translateX(1px); box-shadow: 2px 2px 5px rgba(0,0,0,0.25); filter: brightness(1.1); }
+    .profile-plaque-container .card-info-item { font-family: 'Galada', cursive !important; font-size: 1.2rem !important; line-height: 1.9; color: #5a3a2a; display: flex; align-items: flex-start; gap: 10px; margin-bottom: 10px; }
+    .profile-plaque-container .card-info-item strong.info-label { font-family: 'Galada', cursive !important; color: #8B4513; font-weight: normal; font-size: 1.25rem !important; margin-right: 4px; line-height: 1.5; }
+    .profile-plaque-container .details-content-expanded { background-color: rgba(220, 210, 200, 0.95); border-width: 4px; border-style: dashed; border-color: #a07040; padding: 20px 25px; margin-top: 15px; border-radius: 3px; box-shadow: inset 0 0 10px rgba(0,0,0,0.1); position: relative; color: #4a2a1a; }
+    .profile-plaque-container .details-content-expanded[style*="background-image"] { color: #f0e8d8; text-shadow: 1px 1px 2px rgba(0,0,0,0.7); }
+    .profile-plaque-container .details-content-expanded h3.details-title { font-family: 'Atma', cursive !important; font-size: 1.8rem !important; color: #503010; border-bottom: 1px solid #b08050; padding-bottom: 10px; margin-bottom: 15px; text-align: center; cursor: pointer; transition: color 0.2s ease-in-out; }
+    .profile-plaque-container .details-content-expanded h3.details-title:hover { color: #a07040; }
+    .profile-plaque-container .details-content-expanded[style*="background-image"] h3.details-title { color: #fff2e0; text-shadow: 1px 1px 3px rgba(0,0,0,0.8); }
+    .profile-plaque-container .details-content-expanded p, .profile-plaque-container .details-content-expanded span, .profile-plaque-container .details-content-expanded strong.details-label-text { font-family: 'Galada', cursive !important; font-size: 1.35rem !important; line-height: 2.2 !important; }
+    .profile-plaque-container .details-content-expanded strong.details-label-text { color: #8B4513; }
+    .profile-plaque-container .details-content-expanded[style*="background-image"] p, .profile-plaque-container .details-content-expanded[style*="background-image"] span { color: #f0e8d8; }
+    .profile-plaque-container .details-content-expanded[style*="background-image"] strong.details-label-text { color: #ffd7a0; }
+    .profile-plaque-container .details-content-expanded .flex { align-items: flex-start; gap: 10px; }
+    .profile-plaque-container .details-content-expanded .flex svg.lucide { width: 20px !important; height: 20px !important; min-width: 20px !important; min-height: 20px !important; color: #8B4513 !important; margin-top: 9px !important; }
+    .profile-plaque-container .details-content-expanded[style*="background-image"] .flex svg.lucide { color: #ffd7a0 !important; }
+
+
+
+
+
+    /* --- THEME: DARK POSTER --- */
+  
+  
+  
+  
+  
+   .profile-plaque-container.theme-dark-poster { background-color: #4a403a; border: 3px solid #2c2521; box-shadow: 0px 0px 0px 3px #c8ae8a, inset 0 0 15px rgba(0,0,0,0.3), 5px 5px 15px rgba(0,0,0,0.5); border-radius: 8px; color: #e0e0e0; padding: 20px 25px; /* Maintain base padding */ }
+    .profile-plaque-container.theme-dark-poster:hover { box-shadow: 0px 0px 0px 3px #e6c69a, inset 0 0 20px rgba(0,0,0,0.4), 8px 8px 20px rgba(0,0,0,0.6); transform: translateY(-3px) scale(1.02) rotate(0deg); }
+    
+    .profile-plaque-container.theme-dark-poster .profile-photo-pinned-section {
+        background-color: rgba(0,0,0,0.1);
+        padding: 12px; /* Adjusted padding */
+        margin-left: -15px; /* Spans wider */
+        margin-right: -15px; /* Spans wider */
+        margin-top: -10px; /* Pulls upwards */
+        border-bottom: 2px dashed #c8ae8a;
+        border-radius: 6px 6px 0 0;
+    }
+    .profile-plaque-container.theme-dark-poster .profile-photo-wrapper-tilted {
+        width: 85px;
+        height: 105px;
+        border: 2px solid #a08060; 
+        background-color: #f0e8e0; 
+        box-shadow: 2px 2px 4px rgba(0,0,0,0.3); 
+        overflow: hidden;
+        border-radius: 4px; 
+        margin-right: 15px; 
+        transform: rotate(0deg) !important; 
+    }
+    .profile-plaque-container.theme-dark-poster:hover .profile-photo-wrapper-tilted {
+        transform: rotate(0deg) scale(1.02) !important; 
+    }
+    .profile-plaque-container.theme-dark-poster .profile-photo-wrapper-tilted img {
+        filter: sepia(0.2) contrast(1.0) brightness(0.98) saturate(0.95); 
+    }
+    .profile-plaque-container.theme-dark-poster .profile-photo-wrapper-tilted::before {
+        display: none !important; 
+    }
+    
+    .profile-plaque-container.theme-dark-poster .profile-identity-details {
+        flex-grow: 1; 
+    }
+    .profile-plaque-container.theme-dark-poster .profile-main-title { color: #FFD700; text-shadow: 1px 1px 2px rgba(0,0,0,0.7); }
+    .profile-plaque-container.theme-dark-poster .profile-ruling-years, .profile-plaque-container.theme-dark-poster .reign-period-text-card { font-size: 0.95rem; color: #b08d57; }
+    .profile-plaque-container.theme-dark-poster .profile-ruling-years i[data-lucide], .profile-plaque-container.theme-dark-poster .reign-period-text-card i[data-lucide] { color: #b08d57 !important; }
+    
+    .profile-plaque-container.theme-dark-poster .tag-badge-group {
+        margin-bottom: 12px; 
+        padding-bottom: 12px; 
+        border-bottom: 1px solid rgba(200, 174, 138, 0.35); 
+    }
+    .profile-plaque-container.theme-dark-poster .tag-badge-item { font-size: 0.75rem !important; padding: 4px 10px !important; border-radius: 4px !important; text-transform: uppercase; letter-spacing: 0.5px; box-shadow: 1px 1px 3px rgba(0,0,0,0.3) !important; border: 1px solid rgba(0,0,0,0.2) !important; height: auto !important; }
+    .profile-plaque-container.theme-dark-poster .tag-badge-item::before { display: none !important; }
+    .profile-plaque-container.theme-dark-poster .tag-badge-item.bg-\[\#8B4513\] { background-color: #8B4513 !important; color: #FFD700 !important; border-color: #FFD700 !important;} 
+    
+    .profile-plaque-container.theme-dark-poster .card-info-item { font-family: 'Galada', 'Lohit Bengali', 'Hind Siliguri', sans-serif; font-size: 1.05rem; color: #f0e0d0; }
+    .profile-plaque-container.theme-dark-poster .card-info-item strong.info-label { color: #FFD700; font-size: 1.1rem !important; }
+    .profile-plaque-container.theme-dark-poster .card-info-item i[data-lucide] { color: #b08d57 !important; }
+    .profile-plaque-container.theme-dark-poster .card-info-item:hover i[data-lucide] { color: #ffe45c !important; }
+
+    .profile-plaque-container.theme-dark-poster .details-content-expanded { background-color: rgba(44, 37, 33, 0.85) !important; border-top: 2px solid #c8ae8a !important; border-bottom: none !important; border-left: none !important; border-right: none !important; border-style: solid !important; padding: 15px !important; border-radius: 0 0 6px 6px !important; color: #f0e0d0 !important; text-shadow: none !important; background-image: none !important; }
+    .profile-plaque-container.theme-dark-poster .details-content-expanded h3.details-title { color: #FFD700 !important; border-bottom: 1px solid #b08d57 !important; padding-bottom: 5px !important; margin-bottom: 10px !important; font-size: 1.6rem !important; }
+    .profile-plaque-container.theme-dark-poster .details-content-expanded p, .profile-plaque-container.theme-dark-poster .details-content-expanded span { font-size: 1.2rem !important; color: #f0e0d0 !important; }
+    .profile-plaque-container.theme-dark-poster .details-content-expanded strong.details-label-text { color: #f5e6c8 !important; font-size: 1.25rem !important; }
+    .profile-plaque-container.theme-dark-poster .details-content-expanded .flex svg.lucide { color: #f5e6c8 !important; } 
+    .profile-plaque-container.theme-dark-poster .details-download-button-styled { background-color: #8B4513 !important; color: #FFD700 !important; border: 1px solid #FFD700 !important; }
+    .profile-plaque-container.theme-dark-poster .details-download-button-styled:hover { background-color: #a0522d !important; color: #fff !important; }
+    
+    /* --- THEME: MYSTIC FOREST (GRADIENT TEAL) --- */
+      /* ... অন্যান্য CSS ... */
+
+    .profile-plaque-container.theme-gradient-teal .teal-details-title-area {
+        position: absolute;
+        top: 0; /* এটিকে একদম উপরে নিয়ে আসুন */
+        left: 0;
+        right: 0;
+        display: flex; /* লাইন এবং বাটনকে এক লাইনে আনার জন্য */
+        align-items: center; /* উল্লম্বভাবে মাঝখানে আনার জন্য */
+        justify-content: center; /* অনুভূমিকভাবে মাঝখানে আনার জন্য */
+        height: 3rem; /* একটি নির্দিষ্ট উচ্চতা দিন যাতে কন্টেন্ট বক্স এর নিচে শুরু হতে পারে */
+        padding-top: 0.5rem; /* বাটনটিকে একটু নিচে নামানোর জন্য */
+        z-index: 1;
+        cursor: pointer; /* যেহেতু পুরো এলাকাটি ক্লিকযোগ্য */
+    }
+
+    .profile-plaque-container.theme-gradient-teal .teal-details-title-area .teal-line {
+        flex-grow: 1; /* লাইনগুলো যেন অবশিষ্ট জায়গা নিয়ে নেয় */
+        height: 1px;
+        background: white;
+        max-width: calc(50% - 6rem); /* বাটন এবং মার্জিনের জন্য জায়গা রেখে লাইনের সর্বোচ্চ প্রস্থ */
+    }
+    
+    /* "বিস্তারিত বিবরণ" বাটনের জন্য CSS */
+    .profile-plaque-container.theme-gradient-teal .details-title-button {
+        background-color: white;
+        color: #F9C055; /* Goldish text */
+        border: 1px solid #7a5c25; /* Dark goldish border */
+        padding: 0.2rem 0.8rem; /* প্যাডিং কিছুটা কমানো হয়েছে */
+        border-radius: 9999px;
+        font-family: 'Atma', cursive !important;
+        font-size: 0.9rem !important; /* ফন্ট সাইজ কিছুটা কমানো হয়েছে */
+        font-weight: 600;
+        margin: 0 0.5rem; 
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        white-space: nowrap; /* লেখা যেন এক লাইনে থাকে */
+        /* নিচের পজিশনিং স্টাইলগুলো আর দরকার নেই কারণ flexbox ব্যবহার করা হচ্ছে */
+        /* position: relative; */
+        /* top: auto; */
+        /* left: auto; */
+        /* transform: none; */
+    }
+
+    /* কন্টেন্ট বক্সের margin-top সমন্বয় করুন */
+    .profile-plaque-container.theme-gradient-teal .details > .actual-teal-content-box {
+       background-color: transparent !important; /* ব্যাকগ্রাউন্ড স্বচ্ছ করুন */
+       /* color:  !important; <- এটি .details .actual-teal-content-box p, span এ হ্যান্ডেল করা হবে */
+       /* border: 2px solid #2a5a59 !important; <- এটি আর দরকার নেই কারণ বর্ডার .details এ আছে */
+       border-radius: 0.25rem; 
+       padding: 1rem !important; 
+       margin-top: 2.5rem !important; /* এই মানটি title-area এর height এবং padding এর সাথে সমন্বয় করে ঠিক করুন */
+       /* box-shadow: 0 2px 5px rgba(0,0,0,0.15); <- এটিও দরকার নেই */
+    }
+
+    /* টেক্সট এবং আইকনের রঙ সমন্বয় করুন */
+    .profile-plaque-container.theme-gradient-teal .details .actual-teal-content-box p,
+    .profile-plaque-container.theme-gradient-teal .details .actual-teal-content-box span {
+        font-family: 'Galada', cursive !important;
+        font-size: 1rem !important;
+        color: white !important; /* টেক্সটের রঙ সাদা হবে */
+        line-height: 1.8 !important;
+    }
+    .profile-plaque-container.theme-gradient-teal .details .actual-teal-content-box i[data-lucide] {
+        color: #f1c40f !important; /* আইকনের রঙ সোনালী */
+        width: 1.25rem !important;
+        height: 1.25rem !important;
+        flex-shrink: 0; 
+        margin-top: 0.2rem; 
+    }
+
+    /* ... অন্যান্য CSS ... */  .profile-plaque-container.theme-gradient-teal { background-color: #1f4a4a; border: 1px solid #a68e6a !important; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06) !important; border-radius: 0.75rem !important; color: #fffde9; padding: 1rem !important; cursor: pointer; } /* Added cursor:pointer */
+    .profile-plaque-container.theme-gradient-teal:hover { transform: scale(1.05) translateY(0px) rotate(0deg) !important; }
+    .profile-plaque-container.theme-gradient-teal .profile-photo-pinned-section { display: flex; align-items: stretch; gap: 0; border: 1px solid #a68e6a; border-radius: 0.5rem; overflow: hidden; padding: 0 !important; margin: 0 0 0.75rem 0 !important; background-color: transparent !important; border-bottom: 1px solid #a68e6a !important; }
+    .profile-plaque-container.theme-gradient-teal .profile-photo-wrapper-tilted { width: 4rem !important; height: auto !important; background-color: white !important; flex-shrink: 0; margin-right: 0 !important; transform: none !important; border: none !important; box-shadow: none !important; border-radius: 0 !important; display: flex; align-items: stretch; }
+    .profile-plaque-container.theme-gradient-teal .profile-photo-wrapper-tilted::before { display: none !important; }
+    .profile-plaque-container.theme-gradient-teal .profile-photo-wrapper-tilted img { object-fit: cover !important; filter: none !important; width: 100%; height: 100%; }
+    .profile-plaque-container.theme-gradient-teal .profile-identity-details { background-color: #fce9b3; width: 100%; padding: 0 !important; display: flex; flex-direction: column; justify-content: center; }
+    .profile-plaque-container.theme-gradient-teal .name-and-tag-bar { display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; background-color: #F9479C; padding: 0.25rem 0.75rem; }
+    .profile-plaque-container.theme-gradient-teal .profile-main-title { font-family: 'Atma', cursive !important; color: #0f2e2e !important; font-weight: bold !important; font-size: 1.125rem !important; text-shadow: none !important; margin-bottom: 0 !important; }
+    .profile-plaque-container.theme-gradient-teal .years-bar { display: flex; align-items: center; gap: 0.5rem; color: #7a5c25; font-size: 0.875rem; background-color: #FFB741; padding: 0.25rem 0.75rem; text-align: left; }
+    .profile-plaque-container.theme-gradient-teal .years-bar .red-dot { width: 0.5rem; height: 0.5rem; background-color: #dc2626; border-radius: 9999px; display: inline-block; margin-left: 0; }
+    .profile-plaque-container.theme-gradient-teal .profile-ruling-years { font-family: 'Galada', cursive !important; font-size: 0.875rem !important; color: #7a5c25 !important; margin-top: 0 !important; padding: 0 !important; }
+    .profile-plaque-container.theme-gradient-teal .profile-ruling-years i[data-lucide], .profile-plaque-container.theme-gradient-teal .reign-period-text-card i[data-lucide] { display: none !important; }
+    .profile-plaque-container.theme-gradient-teal .profile-tag-display, .profile-plaque-container.theme-gradient-teal .profile-badge-display { font-size: 0.75rem !important; font-weight: 600 !important; padding: 0.25rem 0.5rem !important; border-radius: 0.375rem !important; box-shadow: 0 1px 2px 0 rgba(0,0,0,0.05) !important; display: inline-flex; align-items: center; gap: 0.25rem; }
+    .profile-plaque-container.theme-gradient-teal .profile-tag-display { background-color: #7a5c25 !important; color: #fffde9 !important; } 
+    .profile-plaque-container.theme-gradient-teal .profile-badge-display { background-color: #718096 !important; color: white !important; }  
+    .profile-plaque-container.theme-gradient-teal .tag-badge-item { display: none !important; }
+    
+    .profile-plaque-container.theme-gradient-teal .info-items-bordered-box {
+        border: 2px solid #FFB741; padding: 1rem; border-radius: 0.25rem; margin-top: 0.75rem;
+        background-color: rgba(15, 46, 46, 0.85); 
+    }
+    .profile-plaque-container.theme-gradient-teal .card-info-item { font-family: 'Galada', 'Lohit Bengali', 'Hind Siliguri', sans-serif !important; font-size: 1rem !important; color: #fff6cc !important; -  margin-top: 0.5rem !important; padding: 0 !important; border: none !important; }
+    .profile-plaque-container.theme-gradient-teal .card-info-item strong.info-label { font-family: 'Galada', cursive !important; color: #f1c40f !important; font-weight: bold !important; font-size: 1rem !important;  }
+    .profile-plaque-container.theme-gradient-teal .card-info-item i[data-lucide] { flex-shrink: 0; margin-top: 0.25rem; width: 1.25rem !important; height: 1.25rem !important; color: #f1c40f !important; stroke-width: 1.5px !important; }
+    
+    /* Styles for the Teal theme's expanded details section */
+    .profile-plaque-container.theme-gradient-teal .details {
+        background-color: #2a5a59; /* Dark teal background for the whole expanded area */
+        color: white; /* Default text color for content in .details */
+        margin-top: 8px !important;
+        padding: 12px !important; /* Padding for the outer .details container */
+        border-radius: 8px !important;
+        border: none !important;
+        box-shadow: none !important;
+        background-image: none !important;
+        position: relative; /* For absolute positioning of title area */
+    }
+    /* The white content box inside .details */
+    .profile-plaque-container.theme-gradient-teal .details > .actual-teal-content-box {
+       background-color: white !important;
+       color: #2a5a59 !important; /* Teal text color for content inside white box */
+       border: 2px solid #2a5a59 !important; /* Teal border for white box */
+       border-radius: 0.25rem; 
+       padding: 1rem !important; 
+       margin-top: 3.5rem !important; /* Space for the "বিস্তারিত" button area */
+       box-shadow: 0 2px 5px rgba(0,0,0,0.15); 
+    }
+    /* Labels (strong tags) inside the white content box */
+    .profile-plaque-container.theme-gradient-teal .details .details-label-text {
+       color: #f1c40f !important; /* Gold color for labels */
+    }
+    /* "বিস্তারিত" button within the Teal theme expanded details */
+    /* This is the general style for the button if class details-title-button is used */
+    .profile-plaque-container.theme-gradient-teal .details-title-button {
+        background-color: white;
+        color: #F9C055; /* Goldish text */
+        border: 1px solid #7a5c25; /* Dark goldish border */
+        padding: 0.25rem 1rem;
+        border-radius: 9999px;
+        font-family: 'Atma', cursive !important;
+        font-size: 1rem !important;
+        font-weight: 600;
+        margin: 0 0.5rem; /* Spacing between lines and button */
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        cursor: default; /* It's a title, not a button to click here */
+    }
+     .profile-plaque-container.theme-gradient-teal .teal-details-title-area {
+        position: absolute;
+        top: 0.75rem; /* Adjust to position correctly above the margin-top of content box */
+        left: 0;
+        right: 0;
+        text-align: center;
+        z-index: 1; /* Ensure it's above the content box flow */
+    }
+    .profile-plaque-container.theme-gradient-teal .teal-details-title-area .teal-line {
+        display: inline-block;
+        width: calc(50% - 5rem); /* Adjust width based on button size and margin */
+        max-width: 100px; /* Max line width */
+        height: 1px;
+        background: white;
+        vertical-align: middle;
+    }
+
+    /* Text content within the white box for Teal theme */
+    .profile-plaque-container.theme-gradient-teal .details .actual-teal-content-box p,
+    .profile-plaque-container.theme-gradient-teal .details .actual-teal-content-box span {
+        font-family: 'Galada', cursive !important;
+        font-size: 1rem !important;
+        color: #2a5a59 !important; /* Teal text color for content inside white box */
+        line-height: 1.8 !important;
+    }
+    .profile-plaque-container.theme-gradient-teal .details .actual-teal-content-box i[data-lucide] {
+        color: #2a5a59 !important; /* Teal icons inside white box */
+        width: 1.25rem !important;
+        height: 1.25rem !important;
+    }
+
+    .profile-plaque-container.theme-gradient-teal .details-download-button-styled { background-color: #3e2c41 !important; color: white !important; border: 1px solid #a68e6a !important; }
+    .profile-plaque-container.theme-gradient-teal .details-download-button-styled:hover { background-color: #5c5270 !important; }
+    
+    .profile-plaque-container.theme-gradient-teal .profile-main-title.text-stroke {   font-weight: bold; }
+
+
+    /* Action Buttons Styling (Unified) */
+    .card-actions-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap: 0.5rem; margin-top: 0.75rem; }
+    .details-download-button-styled { background-color: #604020; color: #e0d8cc; border: 1px solid #402010; font-family: 'Atma', cursive !important; font-size: 0.95rem !important; padding: 8px 12px; border-radius: 3px; transition: all 0.2s ease; text-shadow: 1px 1px 1px rgba(0,0,0,0.3); display: inline-flex; align-items: center; justify-content: center; gap: 6px; flex-grow: 1; }
+    .details-download-button-styled:hover { background-color: #705030; color: #fff; box-shadow: 0px 1px 3px rgba(0,0,0,0.4); }
+    .details-content-expanded[style*="background-image"] .details-download-button-styled { background-color: rgba(96, 64, 32, 0.85); color: #f0e8d8; border-color: rgba(64, 32, 16, 0.9); }
+    .details-content-expanded[style*="background-image"] .details-download-button-styled:hover { background-color: rgba(112, 80, 48, 0.95); color: #ffffff; }
+    .details-download-button-styled svg.lucide { width: 14px !important; height: 14px !important; min-width: 14px !important; min-height: 14px !important; color: inherit !important; margin-top: 0 !important; }
+
+    svg.lucide { display: inline-block; vertical-align: middle; flex-shrink: 0 !important; stroke-width: 1.8px !important; transition: transform 0.2s ease, color 0.2s ease !important; }
+    .card-info-item svg.lucide { width: 20px !important; height: 20px !important; min-width: 20px !important; min-height: 20px !important;  margin-top: 7px !important; } 
+     .card-info-item svg.lucide {
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.card-info-item:hover svg.lucide {
+  transform: scale(1.15) ;
+  color: #DAA520 !important;
+}
+    .tag-badge-item svg.lucide { width: 14px !important; height: 14px !important; min-width: 14px !important; min-height: 14px !important; color: inherit !important; stroke-width: 2px !important; }
+    
+    #modal > div { background-color: #d8c8b8; color: #4a2a1a; border: 4px solid #604020; } 
+    #modalTitle { font-family: 'Atma', cursive; color: #503010; }
+    #modalContent { font-family: 'Galada', cursive; }
+    #developerModalContent { max-height: 80vh; overflow-y: auto; padding-right: 10px; } 
+    #developerModalContent::-webkit-scrollbar { width: 8px; }
+    #developerModalContent::-webkit-scrollbar-thumb { background-color: #8a6b51; border-radius: 4px; }
+    #developerModalContent::-webkit-scrollbar-thumb:hover { background-color: #a08060; }
+    .developer-card { background-color: #645144; border: 2px solid #a07040; box-shadow: 0px 0px 0px 2px #4a3b32, inset 0 0 10px rgba(0,0,0,0.2), 3px 3px 10px rgba(0,0,0,0.4); border-radius: 8px; padding: 20px; margin-bottom: 15px; text-align: center; color: #d8c8b8; }
+    .developer-card img { width: 100px; height: 100px; border-radius: 50%; border: 3px solid #a07040; margin: 0 auto 15px auto; object-fit: cover; box-shadow: 0 4px 8px rgba(0,0,0,0.3); }
+    .developer-card h3 { font-family: 'Atma', cursive; color: #FFD700; font-size: 1.5rem; margin-bottom: 5px; }
+    .developer-card p { font-family: 'Hind Siliguri', sans-serif; color: #d8c8b8; font-size: 0.9rem; line-height: 1.6; margin-bottom: 3px; }
+    .developer-card .social-icons a { color: #c0a070; margin: 0 8px; font-size: 1.5rem; transition: color 0.3s ease; }
+    .developer-card .social-icons a:hover { color: #FFD700; }
+
+    #bottomNavBar { background-color: rgba(50, 30, 20, 0.97) !important; backdrop-filter: blur(6px); border-top: 1px solid rgba(180, 140, 100, 0.5) !important; box-shadow: 0 -2px 10px rgba(0,0,0,0.3); transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out; }
+    #bottomNavBar.hidden-nav { transform: translateY(100%); opacity: 0.85; pointer-events: none; }
+    #bottomNavBar button { color: #e0c8a0; transition: color 0.2s ease, transform 0.1s ease-out, background-color 0.2s ease; padding: 0.25rem 0.5rem; border-radius: 6px; }
+    #bottomNavBar button:hover, #bottomNavBar button:hover svg, #bottomNavBar button:hover i[data-lucide], #bottomNavBar button:hover span { color: #FFEFB5 !important; }
+    #bottomNavBar button:active { transform: scale(0.94); background-color: rgba(255,239,181,0.1); }
+    #bottomNavBar button.active-nav-item { color: #FFD700 !important; background-color: rgba(255, 215, 0, 0.15); }
+    #bottomNavBar button.active-nav-item svg, #bottomNavBar button.active-nav-item i[data-lucide] { color: #FFD700 !important; }
+    #bottomNavBar button.active-nav-item i[data-lucide], #bottomNavBar button:active i[data-lucide] { transform: translateY(-1px) scale(1.05); }
+    #bottomNavBar svg, #bottomNavBar i[data-lucide] { width: 26px; height: 26px; margin-bottom: 0.15rem; stroke-width: 1.8px !important; transition: transform 0.15s ease-out; }
+    #bottomNavBar button span { font-family: 'Atma', cursive; font-size: 0.8rem; letter-spacing: 0.3px; }
+
+    #timelineScrollbarContainer { position: fixed; right: 0; left: 0; bottom: 0; height: auto; z-index: 45; display: flex; flex-direction: column; align-items: center; transition: opacity 0.3s ease, transform 0.3s ease, bottom 0.3s ease-in-out; background-color: rgba(50, 30, 20, 0.96); border-top: 1px solid rgba(180, 140, 100, 0.6); box-shadow: 0 -2px 8px rgba(0,0,0,0.25); padding-top: 2px; padding-bottom: 2px; }
+    #timelineScrollbarContainer.hidden { opacity: 0; transform: translateY(100%); pointer-events: none; }
+    #timelineScrollbar { width: 100%; max-width: calc(100vw - 10px); overflow-x: auto; overflow-y: hidden; scrollbar-width: thin; scrollbar-color: #8a6b51 #52453c; display: flex; flex-direction: row; align-items: center; padding: 5px 8px; gap: 8px; height: 30px; position: relative; z-index: 1; }
+    .timeline-background-line { position: absolute; top: 50%; left: 0; transform: translateY(-50%); height: 1.5px; background-color: rgba(180, 140, 100, 0.65); z-index: 1; width: 100%; transition: width 0.1s ease-out; }
+    #timelineScrollbar::-webkit-scrollbar { height: 4px; }
+    #timelineScrollbar::-webkit-scrollbar-track { background: rgba(82, 69, 60, 0.3); border-radius: 2px; }
+    #timelineScrollbar::-webkit-scrollbar-thumb { background-color: #8a6b51; border-radius: 2px; border: 1px solid #4a3b32; }
+    #timelineScrollbar::-webkit-scrollbar-thumb:hover { background-color: #a08060; }
+    .timeline-year-item { padding: 3px 8px; font-family: 'Galada', cursive; font-size: 0.85rem; color: #e0c8a0; text-align: center; cursor: pointer; border-radius: 15px; transition: all 0.2s ease-out; border: 1px solid transparent; text-shadow: 1px 1px 1px rgba(0,0,0,0.5); white-space: nowrap; flex-shrink: 0; line-height: 1.3; background-color: rgba(60, 45, 35, 0.85); position: relative; z-index: 2; box-shadow: 0 1px 2px rgba(0,0,0,0.15); }
+    .timeline-year-item:hover { background-color: rgba(180, 140, 100, 0.7); color: #FFEFB5; border-color: rgba(255,215,0,0.4); transform: translateY(-1px) scale(1.02); box-shadow: 0 1px 3px rgba(0,0,0,0.25); }
+    .timeline-year-item.active { background-color: #FFD700; color: #402010; border-color: #b8860b; box-shadow: 0 0 8px rgba(255,215,0,0.7), inset 0 0 2px rgba(0,0,0,0.15); transform: translateY(-1px) scale(1.03); text-shadow: none; font-weight: 600; }
+
+    #specialDayNotification { cursor: pointer; }
+    #specialDayNotification.show { display: flex !important; animation: fadeInOutNotify 7s forwards; }
+    @keyframes fadeInOutNotify { 0% { opacity: 0; transform: translateY(20px) scale(0.95); } 10% { opacity: 1; transform: translateY(0) scale(1); } 90% { opacity: 1; transform: translateY(0) scale(1); } 100% { opacity: 0; transform: translateY(20px) scale(0.95); } }
+    @keyframes ringBell { 0% { transform: rotate(0deg) scale(1); } 10% { transform: rotate(15deg) scale(1.1); } 20% { transform: rotate(-15deg) scale(1.1); } 30% { transform: rotate(10deg) scale(1.1); } 40% { transform: rotate(-10deg) scale(1.1); } 50% { transform: rotate(5deg) scale(1.1); } 60% { transform: rotate(-5deg) scale(1.1); } 70% { transform: rotate(0deg) scale(1.1); } 100% { transform: rotate(0deg) scale(1); } }
+
+    body.font-size-small { font-size: 0.95rem !important; line-height: 1.7 !important; }
+    body.font-size-small .profile-main-title { font-size: 1.9rem !important; }
+    body.font-size-small .card-info-item { font-size: 1.05rem !important; }
+    body.font-size-large { font-size: 1.2rem !important; line-height: 1.9 !important; }
+    body.font-size-large .profile-main-title { font-size: 2.3rem !important; }
+    body.font-size-large .card-info-item { font-size: 1.35rem !important; }
+
+    @media print { 
+        body { background-image: none !important; background-color: #fff !important; color: #000 !important; font-size: 10pt !important; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+        body * { visibility: hidden; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+        .printable-card, .printable-card * { visibility: visible !important; }
+        .printable-card { position: absolute !important; left: 0 !important; top: 0 !important; width: 100% !important; max-width: 100% !important; margin: 0 !important; padding: 20px 25px !important; box-shadow: none !important; border: none !important; transform: none !important; page-break-inside: avoid !important; font-family: 'Galada', cursive !important; line-height: 1.8 !important; background-color: #d8c8b8 !important; color: #4a2a1a !important; border: 1px solid #a07040 !important; box-shadow: inset 0 0 0 3px #805020, inset 0 0 0 6px #c0a070, inset 0 0 30px rgba(0,0,0,0.3), 5px 5px 15px rgba(0,0,0,0.4), 0 3px 3px -3px #503010, 0 -3px 3px -3px #503010, 3px 0 3px -3px #503010, -3px 0 3px -3px #503010 !important; border-radius: 6px !important; overflow: visible !important; }
+        .printable-card.theme-dark-poster { background-color: #4a403a !important; border: 3px solid #2c2521 !important; color: #e0e0e0 !important; box-shadow: 0px 0px 0px 3px #c8ae8a, inset 0 0 15px rgba(0,0,0,0.3), 5px 5px 15px rgba(0,0,0,0.5) !important; }
+        .printable-card.theme-dark-poster .profile-main-title { color: #FFD700 !important; }
+        .printable-card.theme-gradient-teal { background-image: linear-gradient(to bottom right, #1f4a4a, #2d6966) !important; border: 1px solid #a68e6a !important; color: #fffde9 !important; }
+        .printable-card.theme-gradient-teal .profile-main-title { color: #0f2e2e !important; -webkit-text-stroke: 0.1px #0CC7DD !important; }
+        .printable-card .card-actions-grid, nav, #bottomNavBar, #searchBarContainer, #empireFilterBar, #timelineScrollbarContainer, #developerModal, #settingsModal, #extraDetailsModal, #modal, #offlineMessage, #fullPageOfflineMessage, #topNavBellButton, #specialDayNotification { display: none !important; }
+        body.printing-active { overflow: hidden !important; }
+        @page { size: A4; margin: 1cm; }
+    }
+  </style>
+</head>
+
+<body class="bg-[#4a3b32]">
+
+ <nav id="mainNav" class="sticky top-0 z-50">
+    <div id="topNavBarLogo">
+        <div id="siteLogoAndTitle">
+            <img id="siteLogo" src="https://img.icons8.com/plasticine/100/000000/mosque.png" alt="লোগো">
+            <h1 id="siteTitle">ঐতিহাসিক স্মারক</h1>
+        </div>
+        <button onclick="handleTopNavBellClick()" id="topNavBellButton" title="বিশেষ দিনের নোটিশ দেখুন">
+            <i data-lucide="bell" class="w-6 h-6"></i>
+            <span id="notificationBadge" class="hidden"></span>
+        </button>
+    </div>
+    <div id="empireFilterBar" class="max-w-7xl mx-auto overflow-x-auto hidden"> <div class="nav-button-container relative w-max"> <div class="absolute top-1/2 left-0 right-0 h-0.5 bg-[#a08060]/50 z-0"></div> <button onclick="filterByEmpire('all')" class="nav-button all z-10">সব</button> <button onclick="filterByEmpire('খিলাফতে রাশেদা')" class="nav-button khilafat z-10">খিলাফতে রাশেদা</button> <button onclick="filterByEmpire('আয়ুবী')" class="nav-button ayyubi z-10">আয়ুবী</button> <button onclick="filterByEmpire('উসমানী')" class="nav-button usmani z-10">উসমানী</button> <button onclick="filterByEmpire('ঘোরী')" class="nav-button ghori z-10">ঘোরী</button> <button onclick="filterByEmpire('মুঘল')" class="nav-button mughal z-10">মুঘল</button> <button onclick="filterByEmpire('সেলজুক')" class="nav-button seljuk z-10">সেলজুক</button> <button onclick="filterByEmpire('মামলুক')" class="nav-button mamluk z-10">মামলুক</button> </div> </div>
+</nav>
+<div id="searchBarContainer" class="search-bar-container w-full sticky z-40 p-3 flex items-center gap-2 shadow-md hidden"> <input id="searchInput" type="text" placeholder="নাম, ট্যাগ, সাল, বিবরণ..." class="w-full"> <button onclick="refreshProfiles()" class="refresh-button px-4 py-2 whitespace-nowrap"> <i data-lucide="refresh-cw" class="inline-block mr-1 w-4 h-4"></i>রিফ্রেশ </button> </div>
+<div id="offlineMessage" class="hidden fixed top-0 left-0 w-full bg-red-700 text-white p-3 text-center z-[101]" style="font-family: 'Atma', cursive;"> ইন্টারনেট সংযোগ নেই। কিছু বৈশিষ্ট্য সঠিকভাবে কাজ নাও করতে পারে। সম্পূর্ণ ডেটা লোড করতে অনুগ্রহ করে ইন্টারনেট সংযোগ চালু করুন। </div>
+
+<main class="max-w-7xl mx-auto px-2 sm:px-4 py-10" id="contentArea">
+  <div id="fullPageOfflineMessage" class="hidden text-center py-20" style="font-family: 'Atma', cursive; color: #d8c8b8; font-size: 1.5rem;"> এই মুহূর্তে তথ্য নেই। অনুগ্রহ করে ইন্টারনেট সংযোগ চালু করে আবার চেষ্টা করুন। </div>
+  <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-x-10 gap-y-20" id="profileContainer">
+  </div>
+</main>
+<div id="mainContentPadding" style="padding-bottom: 80px;"></div>
+
+<div id="timelineScrollbarContainer" class="flex hidden">
+    <div id="timelineScrollbar">
+        <div class="timeline-background-line"></div>
+    </div>
+</div>
+
+<div id="modal" class="hidden fixed inset-0 bg-black bg-opacity-80 z-[100] flex justify-center items-center p-4"> <div class="bg-[#d8c8b8] text-[#4a2a1a] rounded-md w-11/12 max-w-lg p-6 relative border-4 border-[#604020] shadow-2xl"> <button onclick="closeModal()" class="absolute top-2 right-2 text-red-700 hover:text-red-500 text-4xl font-bold z-10"> <i class="fas fa-times-circle"></i> </button> <h2 id="modalTitle" class="text-2xl mb-5 text-center">প্রোফাইল তথ্য</h2> <div id="profileCardModalContent"></div> <div id="modalContent" class="text-base space-y-3 overflow-y-auto mt-4 max-h-[60vh]"></div> </div> </div>
+<div id="extraDetailsModal" class="hidden fixed inset-0 bg-black bg-opacity-80 z-[105] flex justify-center items-center p-4"> <div class="bg-[#f0e8d8] text-[#4a2a1a] rounded-md w-11/12 max-w-2xl p-6 relative border-4 border-[#604020] shadow-2xl"> <button onclick="closeExtraDetailsModal()" class="absolute top-2 right-3 text-red-700 hover:text-red-500 text-4xl font-bold z-10"> <i class="fas fa-times-circle"></i> </button> <h2 id="extraDetailsModalTitle" class="text-2xl mb-5 text-center" style="font-family: 'Atma', cursive; color: #503010;">অতিরিক্ত বিবরণ</h2> <div id="extraDetailsModalContent" class="text-base space-y-3 overflow-y-auto mt-4 max-h-[70vh]" style="font-family: 'Hind Siliguri', sans-serif; line-height: 1.8;"> </div> </div> </div>
+<div id="developerModal" class="hidden fixed inset-0 bg-black bg-opacity-75 z-[100] flex justify-center items-center p-4"> <div class="bg-[#52453c] text-[#e0c8a0] rounded-lg w-11/12 max-w-md p-6 relative border-2 border-[#a07040] shadow-2xl"> <button onclick="closeDeveloperModal()" class="absolute top-3 right-3 text-red-400 hover:text-red-300 text-3xl font-bold z-10"> <i class="fas fa-times-circle"></i> </button> <h2 class="text-3xl font-bold mb-6 text-center text-[#FFD700]" style="font-family: 'Atma', cursive;">ডেভেলপার পরিচিতি</h2> <div id="developerModalContent"> <div class="developer-card"> <img src="https://avatars.githubusercontent.com/u/68365954?v=4" alt="রুহুল আমিন"> <h3>রুহুল আমিন</h3> <p>প্রধান ডেভেলপার ও ডিজাইনার</p> <p>এই ঐতিহাসিক টাইমলাইন অ্যাপ্লিকেশনটি আপনাদের সেবায় উৎসর্গীকৃত।</p> <div class="social-icons mt-3"> <a href="https://github.com/hasan-mahmud-01" target="_blank" title="GitHub"><i class="fab fa-github"></i></a> <a href="https://www.linkedin.com/in/hasan-mahmud-dev/" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a> <a href="mailto:contact.hasanmahmud@gmail.com" title="Email"><i class="fas fa-envelope"></i></a> </div> </div> </div> </div> </div>
+
+<div id="settingsModal" class="hidden fixed inset-0 bg-black bg-opacity-80 z-[105] flex justify-center items-center p-4">
+  <div class="bg-[#f0e8d8] text-[#4a2a1a] rounded-md w-11/12 max-w-md p-6 relative border-4 border-[#604020] shadow-2xl">
+    <button onclick="closeSettingsModal()" class="absolute top-2 right-3 text-red-700 hover:text-red-500 text-4xl font-bold z-10"> <i class="fas fa-times-circle"></i> </button>
+    <h2 class="text-2xl mb-6 text-center" style="font-family: 'Atma', cursive; color: #503010;">সেটিংস</h2>
+    <div id="settingsModalContent" class="space-y-6 overflow-y-auto max-h-[70vh]" style="font-family: 'Hind Siliguri', sans-serif;">
+      <div> <h3 class="text-lg font-semibold mb-2 text-[#503010]">ন্যাভিগেশন স্টাইল</h3> <div class="bg-[#d8c8b8] p-3 rounded space-y-2"> <div class="flex items-center"> <input type="radio" id="navStyleScroll" name="navStyle" value="scroll" class="mr-2 h-4 w-4 text-[#8B4513] focus:ring-[#a07040] border-gray-300"> <label for="navStyleScroll" class="cursor-pointer text-[#4a2a1a]">স্ক্রলে হাইড/শো (আধুনিক)</label> </div> <div class="flex items-center"> <input type="radio" id="navStyleFixed" name="navStyle" value="fixed" class="mr-2 h-4 w-4 text-[#8B4513] focus:ring-[#a07040] border-gray-300"> <label for="navStyleFixed" class="cursor-pointer text-[#4a2a1a]">সর্বদা দৃশ্যমান (ক্লাসিক)</label> </div> </div> </div>
+      <div> <h3 class="text-lg font-semibold mb-2 text-[#503010]">বিশেষ দিনের নোটিফিকেশন</h3> <div class="flex items-center justify-between bg-[#d8c8b8] p-3 rounded"> <label for="specialDayNotificationToggle" class="cursor-pointer text-[#4a2a1a] flex-grow">নোটিফিকেশন দেখান</label> <label class="relative inline-flex items-center cursor-pointer"> <input type="checkbox" id="specialDayNotificationToggle" class="sr-only peer"> <div class="w-11 h-6 bg-gray-400 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-[#a07040]/50 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#8B4513]"></div> </label> </div> </div>
+      <div> <h3 class="text-lg font-semibold mb-2 text-[#503010]">ফন্ট সাইজ</h3> <div class="bg-[#d8c8b8] p-3 rounded"> <select id="fontSizeSelector" class="w-full p-2 border border-[#a07040] rounded bg-white text-[#4a2a1a] focus:ring-2 focus:ring-[#8B4513] focus:border-[#8B4513]"> <option value="small">ছোট</option> <option value="medium">মাঝারি (ডিফল্ট)</option> <option value="large">বড়</option> </select> </div> </div>
+      <div> <h3 class="text-lg font-semibold mb-2 text-[#503010]">কার্ড থিম</h3> <div id="cardThemeSelectorContainer" class="bg-[#d8c8b8] p-3 rounded space-y-2">
+        <div class="flex items-center"> <input type="radio" id="themeDefault" name="cardTheme" value="default" class="mr-2 h-4 w-4 text-[#8B4513] focus:ring-[#a07040] border-gray-300"> <label for="themeDefault" class="cursor-pointer text-[#4a2a1a]">ডিফল্ট (ঐতিহ্যবাহী ফলক)</label> </div>
+         
+        <div class="flex items-center"> <input type="radio" id="themeDarkPoster" name="cardTheme" value="theme-dark-poster" class="mr-2 h-4 w-4 text-[#8B4513] focus:ring-[#a07040] border-gray-300"> <label for="themeDarkPoster" class="cursor-pointer text-[#4a2a1a]">ডার্ক চকো পোস্টার</label> </div>
+        <div class="flex items-center"> <input type="radio" id="themeGradientTeal" name="cardTheme" value="theme-gradient-teal" class="mr-2 h-4 w-4 text-[#8B4513] focus:ring-[#a07040] border-gray-300"> <label for="themeGradientTeal" class="cursor-pointer text-[#4a2a1a]">মিস্টিক ফরেস্ট</label> </div>
+      </div> </div>
+      <div> <h3 class="text-lg font-semibold mb-2 text-[#503010]">ডেটা</h3> <div class="bg-[#d8c8b8] p-3 rounded"> <button id="refreshDataButton" class="w-full bg-[#8B4513] text-white py-2 px-4 rounded hover:bg-[#a0522d] transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-[#d8c8b8] focus:ring-[#8B4513]"> ডেটা রিফ্রেশ করুন </button> </div> </div>
+    </div>
+  </div>
+</div>
+
+<div id="specialDayNotification" class="hidden fixed bottom-5 right-5 bg-[#FFD700] text-[#402010] p-4 rounded-lg shadow-lg border-2 border-[#b8860b] z-[110]" style="font-family: 'Atma', cursive; max-width: 300px;"> <div class="flex items-start gap-3"> <i data-lucide="calendar-heart" class="w-8 h-8 text-[#8B4513] flex-shrink-0 mt-1"></i> <div> <h4 id="specialDayTitle" class="text-lg font-semibold mb-1">বিশেষ দিন!</h4> <p id="specialDayMessage" class="text-sm"></p> </div> <button onclick="closeSpecialDayNotification()" class="ml-auto text-red-700 hover:text-red-500 focus:outline-none"> <i data-lucide="x-circle" class="w-5 h-5"></i> </button> </div> </div>
+
+<div id="bottomNavBar" class="fixed bottom-0 left-0 w-full z-50">
+    <div class="max-w-7xl mx-auto flex justify-around py-2.5">
+        <button data-action="home" onclick="handleBottomNavClick('home')" class="flex flex-col items-center"> <i data-lucide="home"></i><span>হোম</span> </button>
+        <button data-action="search" onclick="handleBottomNavClick('search')" class="flex flex-col items-center"> <i data-lucide="search"></i><span>অনুসন্ধান</span> </button>
+        <button data-action="toggleFilters" onclick="handleBottomNavClick('toggleFilters')" class="flex flex-col items-center"> <i data-lucide="list-filter"></i><span>ফিল্টার</span> </button>
+        <button data-action="settings" onclick="handleBottomNavClick('settings')" class="flex flex-col items-center"> <i data-lucide="settings"></i><span>সেটিংস</span> </button>
+        <button data-action="about" onclick="handleBottomNavClick('about')" class="flex flex-col items-center"> <i data-lucide="info"></i><span>ডেভেলপার</span> </button>
+    </div>
+</div>
+
+<script>
+    // Global variables
+    let mainNav, topNavBarLogo, empireFilterBar, searchBarContainer, searchInput, developerModal, offlineMessageEl;
+    let profileContainerEl, fullPageOfflineMessageEl, bottomNavBar, mainContentPadding, contentAreaEl;
+    let extraDetailsModalEl, extraDetailsModalContentEl, extraDetailsModalTitleEl;
+    let timelineScrollbarContainerEl, timelineScrollbarEl;
+    let settingsModalEl, specialDayNotificationToggleEl, fontSizeSelectorEl, refreshDataButtonEl, cardThemeRadioButtons;
+    let navStyleScrollRadio, navStyleFixedRadio; 
+    let specialDayNotificationEl, specialDayTitleEl, specialDayMessageEl;
+    let topNavBellButtonEl, notificationBadgeEl;
+
+    let currentData = [];
+    let currentEmpire = 'all';
+    let uniqueYearsForTimeline = [];
+    let appSettings = {
+        showSpecialNotifications: true,
+        fontSize: 'medium',
+        navigationStyle: 'scroll',
+        cardTheme: 'default' 
+    };
+    let currentActiveBottomNav = 'home';
+    let lastScrollTop = 0;
+    let isNavHidden = false;
+    const scrollThreshold = 70;
+
+    let currentUtterance = null;
+    let speechSynth = window.speechSynthesis;
+    let voices = [];
+
+    const gradientsForTealTheme = ["from-[#1f4a4a] to-[#2d6966]", "from-[#3e2c41] to-[#5c5270]", "from-[#283c63] to-[#197bbd]"];
+    let tealThemeCardIndex = 0;
+
+    let initialProfilesFallback = [ { name: "হযরত আবু বকর (রাঃ)", years: "৫৭৩-৬৩৪ খ্রিস্টাব্দ", empire: "খিলাফতে রাশেদা", region: "আরব উপদ্বীপ", photo: "https://i.ibb.co/PrWZLph/abu-bakr.jpg", badge: "সিদ্দিক", brief: "ইসলামের প্রথম খলিফা এবং রাসূলুল্লাহ (সাঃ) এর ঘনিষ্ঠ সাহাবী।", description: "হযরত আবু বকর (রাঃ) ছিলেন ইসলামের ইতিহাসে এক অবিস্মরণীয় ব্যক্তিত্ব। তিনি রাসূলুল্লাহ (সাঃ) এর হিজরতের সঙ্গী ছিলেন এবং ইসলামের জন্য তাঁর ত্যাগ ও অবদান অপরিসীম।", achievements: "ভণ্ড নবীদের দমন, যাকাত অস্বীকারকারীদের বিরুদ্ধে যুদ্ধ, কুরআন সংকলনের উদ্যোগ।", victories: "রিদ্দার যুদ্ধসমূহে বিজয়।", enemies: "ভণ্ড নবী মুসায়লামা কাজ্জাব, যাকাত অস্বীকারকারী গোত্রসমূহ।", notable: "ইসলামকে সুসংহত করা এবং খিলাফত প্রতিষ্ঠা।", tag: "খলিফা", reignPeriod: "৬৩২-৬৩৪", detailBgImage: "https://i.ibb.co/yQ3C6XQ/islamic-pattern-1.jpg", extraDetails: "<h3>প্রাথমিক জীবন</h3><p>হযরত আবু বকর (রাঃ) মক্কার কুরাইশ বংশের বনু তাইম গোত্রে জন্মগ্রহণ করেন। তাঁর আসল নাম ছিল আবদুল্লাহ। ইসলাম গ্রহণের পর রাসূলুল্লাহ (সাঃ) তাঁকে 'আতিক' (জাহান্নাম থেকে মুক্ত) এবং পরবর্তীতে 'সিদ্দিক' (সত্যবাদী) উপাধিতে ভূষিত করেন। তিনি ছিলেন প্রাপ্তবয়স্ক পুরুষদের মধ্যে প্রথম ইসলাম গ্রহণকারী।</p><h3>খিলাফত</h3><p>রাসূলুল্লাহ (সাঃ) এর ওফাতের পর মুসলিম উম্মাহর ঐকমত্যের ভিত্তিতে তিনি প্রথম খলিফা নির্বাচিত হন। তাঁর সংক্ষিপ্ত শাসনকাল (মাত্র সোয়া দুই বছর) ইসলামের ইতিহাসে অত্যন্ত গুরুত্বপূর্ণ ছিল। তিনি অত্যন্ত দৃঢ়তার সাথে ভণ্ড নবীদের বিদ্রোহ এবং যাকাত অস্বীকারকারীদের ফেতনা দমন করেন। তাঁর শাসনামলেই কুরআন মাজীদ গ্রন্থাকারে সংকলনের প্রাথমিক পদক্ষেপ নেওয়া হয়।</p>", specialEvents: JSON.stringify([{"date": "08-23", "event_bn": "মৃত্যুবার্ষিকী (আবু বকর)", "type": "death_anniversary"}]) }, { name: "সুলতান সালাউদ্দিন আইয়ুবী", years: "১১৩৮-১১৯৩ খ্রিস্টাব্দ", empire: "আয়ুবী", region: "মিশর, সিরিয়া, ফিলিস্তিন", photo: "https://i.ibb.co/zP7G5fD/salahuddin-ayyubi.jpg", badge: "আল-নাসির", brief: "বিখ্যাত মুসলিম সেনাপতি ও সুলতান, ক্রুসেডারদের বিরুদ্ধে সফল প্রতিরোধ গড়ে তোলেন।", description: "সালাউদ্দিন আইয়ুবী ছিলেন মধ্যযুগের একজন কিংবদন্তী শাসক ও যোদ্ধা। তিনি মিশর, সিরিয়া, মেসোপটেমিয়া, হেজাজ, ইয়েমেন এবং উত্তর আফ্রিকার কিছু অংশ নিয়ে গঠিত আয়ুবী সালতানাতের প্রতিষ্ঠাতা। তিনি ১১৮৭ সালে হাত্তিনের যুদ্ধে ক্রুসেডারদের পরাজিত করে জেরুজালেম পুনরুদ্ধার করেন।", achievements: "জেরুজালেম বিজয়, হাত্তিনের যুদ্ধ জয়, মিশর ও সিরিয়াকে একত্রিত করা, মুসলিম বিশ্বে ঐক্য স্থাপন।", victories: "হাত্তিনের যুদ্ধ, জেরুজালেম পুনরুদ্ধার, তৃতীয় ক্রুসেডের বিরুদ্ধে সফল প্রতিরোধ।", enemies: "রিচার্ড দ্য লায়নহার্ট, ক্রুসেডার রাষ্ট্রসমূহ, গুপ্তঘাতক সম্প্রদায় (Assassins)।", notable: "ক্রুসেডারদের বিরুদ্ধে মুসলিম প্রতিরোধকে নেতৃত্ব দেওয়া এবং জেরুজালেম পুনরুদ্ধার। তাঁর বীরত্ব, ন্যায়পরায়ণতা ও উদারতার জন্য তিনি শত্রুদের কাছেও সম্মানিত ছিলেন।", tag: "সুলতান", reignPeriod: "১১৭৪-১১৯৩", detailBgImage: "https://i.ibb.co/dfVpZ0r/jerusalem-dome.jpg", extraDetails: "<h3>সামরিক জীবন</h3><p>সালাউদ্দিন আইয়ুবীর সামরিক জীবন ছিল অত্যন্ত ঘটনাবহুল। তিনি নুরুদ্দিন জঙ্গীর অধীনে সামরিক প্রশিক্ষণ লাভ করেন এবং পরবর্তীতে মিশরের উজির নিযুক্ত হন। ফাতেমীয় খিলাফতের পতনের পর তিনি মিশরের সুলতান হন এবং ক্রুসেডারদের বিরুদ্ধে জিহাদ ঘোষণা করেন।</p><h3>শাসক হিসেবে</h3><p>শাসক হিসেবে সালাউদ্দিন ছিলেন অত্যন্ত ন্যায়পরায়ণ ও প্রজাবৎসল। তিনি শিক্ষা ও সংস্কৃতির পৃষ্ঠপোষকতা করতেন এবং বহু মাদ্রাসা ও হাসপাতাল নির্মাণ করেন। তাঁর শাসনামলে কায়রো একটি গুরুত্বপূর্ণ জ্ঞানচর্চা কেন্দ্রে পরিণত হয়।</p>", specialEvents: JSON.stringify([{"date": "10-02", "event_bn": "জেরুজালেম বিজয় (সালাউদ্দিন)", "type": "victory"}, {"date": "03-04", "event_bn": "মৃত্যুবার্ষিকী (সালাউদ্দিন)", "type": "death_anniversary"}]) }, { name: "প্রথম মুহাম্মদ (উসমানী)", years: "১৩৮৭-১৪২১ খ্রিস্টাব্দ", empire: "উসমানী", region: "আনাতোলিয়া, বলকান", photo: "https://i.ibb.co/QDGHyfT/mehmed-i.jpg", badge: "উসমানী সাম্রাজ্যের দ্বিতীয় প্রতিষ্ঠাতা", brief: "উসমানী আন্তঃশাসনের (Ottoman Interregnum) পর সাম্রাজ্যকে পুনর্গঠিত করেন।", description: " তৈমুরের আক্রমণের পর ১৪০২ সালে আঙ্কারার যুদ্ধে সুলতান প্রথম বায়েজিদের পরাজয় ও বন্দিত্বের ফলে উসমানী সাম্রাজ্যে এক ভয়াবহ সংকট সৃষ্টি হয়, যা 'উসমানী আন্তঃশাসন' নামে পরিচিত। এই সময়ে বায়েজিদের পুত্রদের মধ্যে সিংহাসন নিয়ে প্রায় ১১ বছরব্যাপী গৃহযুদ্ধ চলে। সুলতান প্রথম মুহাম্মদ এই গৃহযুদ্ধে জয়ী হয়ে উসমানী সাম্রাজ্যকে পুনর্গঠিত করেন এবং স্থিতিশীলতা ফিরিয়ে আনেন। একারণে তাঁকে উসমানী সাম্রাজ্যের 'দ্বিতীয় প্রতিষ্ঠাতা' হিসেবেও অভিহিত করা হয়।", achievements: "উসমানী গৃহযুদ্ধ সমাপ্ত করা, সাম্রাজ্যের বিভিন্ন অংশ পুনরুদ্ধার, কেন্দ্রীয় শাসন শক্তিশালীকরণ।", victories: "অভ্যন্তরীণ বিদ্রোহ দমন, ভাইদের বিরুদ্ধে যুদ্ধে জয়লাভ।", enemies: "বিদ্রোহী ভাইগণ (ঈসা, মুসা, সুлейমান, মুস্তফা), কিছু আনাতোলীয় বেইলিক, ভেনিস প্রজাতন্ত্র।", notable: "উসমানী সাম্রাজ্যকে ধ্বংসের হাত থেকে রক্ষা করা এবং এর ভবিষ্যৎ অগ্রযাত্রার পথ সুগম করা।", tag: "সুলতান", reignPeriod: "১৪১৩-১৪২১", detailBgImage: "https://i.ibb.co/HCY8m6x/ottoman-art.jpg", extraDetails: "<h3>আন্তঃশাসন (Interregnum)</h3><p>আঙ্কারার যুদ্ধের পর উসমানী সাম্রাজ্য প্রায় ভেঙ্গে পড়েছিল। সুলতান প্রথম মুহাম্মদের ভাইয়েরা প্রত্যেকেই নিজ নিজ অঞ্চলে স্বাধীনতা ঘোষণা করেন। এই দীর্ঘ গৃহযুদ্ধ সাম্রাজ্যের অস্তিত্বকেই হুমকির মুখে ফেলে দিয়েছিল।</p><h3>পুনর্গঠন</h3><p>সুলতান প্রথম মুহাম্মদ অত্যন্ত ধৈর্য, বিচক্ষণতা ও সামরিক দক্ষতার পরিচয় দিয়ে একে একে তাঁর ভাইদের পরাজিত করেন এবং সাম্রাজ্যকে পুনরায় একত্রিত করেন। তিনি আনাতোলিয়া ও বলকানে উসমানী কর্তৃত্ব পুনঃপ্রতিষ্ঠা করেন। তাঁর শাসনামলেই উসমানী নৌবাহিনী ভেনিসের সাথে প্রথম উল্লেখযোগ্য সংঘাতে লিপ্ত হয়।</p>", specialEvents: JSON.stringify([{"date": "05-26", "event_bn": "মৃত্যুবার্ষিকী (প্রথম মুহাম্মদ)", "type": "death_anniversary"}]) }];
+
+    function toEnglishNumerals(str) { if (!str) return ""; const bengaliNumerals = ['০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯']; const englishNumerals = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']; let newStr = String(str); for (let i = 0; i < bengaliNumerals.length; i++) { newStr = newStr.replace(new RegExp(bengaliNumerals[i], 'g'), englishNumerals[i]); } return newStr; }
+    function toBengaliNumerals(num) { if (num === null || typeof num === 'undefined') return ""; const englishNumerals = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']; const bengaliNumerals = ['০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯']; let newStr = String(num); for (let i = 0; i < englishNumerals.length; i++) { newStr = newStr.replace(new RegExp(englishNumerals[i], 'g'), bengaliNumerals[i]); } return newStr; }
+    function calculateReignDuration(reignPeriod) { if (!reignPeriod || typeof reignPeriod !== 'string' || !reignPeriod.includes('-')) return null; const parts = reignPeriod.split('-'); if (parts.length !== 2) return null; const sanitizeYear = (yearStr) => String(yearStr).replace(/[^\d০-৯]/g, '').trim(); const startYear = parseInt(toEnglishNumerals(sanitizeYear(parts[0])), 10); const endYear = parseInt(toEnglishNumerals(sanitizeYear(parts[1])), 10); if (isNaN(startYear) || isNaN(endYear) || endYear < startYear) return null; return endYear - startYear + 1; }
+    function getTagSpecificClasses(tag) { if (!tag) return 'bg-[#705030] text-[#e0d8cc] border-[#503010]'; const tagLower = tag.toLowerCase(); if (tagLower.includes('সুলতান')) return 'bg-[#8B4513] text-[#FFD700] border-[#b08d57]'; if (tagLower.includes('খলিফা')) return 'bg-[#556B2F] text-[#F0E68C] border-[#a09050]'; if (tagLower.includes('নবী')) return 'bg-[#483D8B] text-[#E6E6FA] border-[#6a5acd]'; return 'bg-[#705030] text-[#e0d8cc] border-[#503010]'; }
+    function getIconForTag(tag) { if (!tag) return 'star'; const tagLower = tag.toLowerCase(); const tagIconMap = { 'নবী': 'feather', 'খলিফা': 'shield-check', 'সুলতান': 'crown', 'সম্রাট': 'castle', 'শাসক': 'landmark', 'বীর': 'swords', 'বিপ্লবী': 'flame', 'গভর্নর': 'briefcase', 'আমির': 'flag', 'গাজী': 'shield', 'বিজ্ঞানী': 'flask-round', 'আলেম': 'book-open', 'ইমাম': 'scroll-text', 'পীর': 'sun', 'চিকিৎসক': 'stethoscope', 'রাসুল': 'dove', 'সাহাবী': 'handshake' }; for (const key in tagIconMap) { if (tagLower.includes(key.toLowerCase())) return tagIconMap[key]; } return 'star'; }
+    async function loadLocalFallbackData() { if (initialProfilesFallback.length > 0) { console.log("Using pre-loaded fallback data (hardcoded):", initialProfilesFallback.length, "profiles"); } else { console.warn("initialProfilesFallback is empty."); } }
+    function getPrimaryYear(yearString) { if (!yearString || typeof yearString !== 'string') return null; let cleanedYearString = yearString.replace(/খ্রিস্টাব্দ|খ্রিঃ|সাল|বছর|অব্দ/gi, '').replace(/আনুমানিক/gi, '').trim(); const parts = cleanedYearString.split('-'); let yearPart = parts[0].trim(); const match = yearPart.match(/[০-৯0-9]+/); if (match && match[0]) { const numericYear = parseInt(toEnglishNumerals(match[0]), 10); if (!isNaN(numericYear)) { if (yearString.includes("খ্রিস্টপূর্বাব্দ") || yearString.toLowerCase().includes("bc")) { return -numericYear; } return numericYear; } } return null; }
+
+    async function fetchSheetData() { await loadLocalFallbackData(); const processFetchedData = (dataArray) => { return dataArray.map(p => { let parsedSpecialEvents = []; if (p.specialEvents && typeof p.specialEvents === 'string') { try { parsedSpecialEvents = JSON.parse(p.specialEvents); if (!Array.isArray(parsedSpecialEvents)) parsedSpecialEvents = []; } catch (e) { console.error("Error parsing specialEvents for profile:", p.name, e); parsedSpecialEvents = []; } } else if (Array.isArray(p.specialEvents)) { parsedSpecialEvents = p.specialEvents; } return { ...p, specialEvents: parsedSpecialEvents }; }); }; currentData = processFetchedData(initialProfilesFallback); const sheetId = "13ey3C8TVIp10oRFLDItIbLlu3QRlW0w5FRZrl3ZMirY"; const googleSheetUrl = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:json&nocache=${new Date().getTime()}`; const displayFullPageMessage = (show, message) => { if (fullPageOfflineMessageEl && profileContainerEl) { if (show) { fullPageOfflineMessageEl.textContent = message; fullPageOfflineMessageEl.classList.remove('hidden'); profileContainerEl.classList.add('hidden'); if(timelineScrollbarContainerEl) timelineScrollbarContainerEl.classList.add('hidden'); if(mainContentPadding && bottomNavBar && timelineScrollbarContainerEl) mainContentPadding.style.paddingBottom = `${bottomNavBar.offsetHeight + 10}px`; } else { fullPageOfflineMessageEl.classList.add('hidden'); profileContainerEl.classList.remove('hidden'); } } }; const showTopOfflineMessage = (show, messageContent = "...") => { if(offlineMessageEl) { offlineMessageEl.textContent = messageContent; show ? offlineMessageEl.classList.remove('hidden') : offlineMessageEl.classList.add('hidden'); } }; if (navigator.onLine) { console.log("ইন্টারনেট সংযোগ আছে। গুগল শিট থেকে ডেটা লোড করার চেষ্টা করা হচ্ছে..."); displayFullPageMessage(false); showTopOfflineMessage(false); try { const res = await fetch(googleSheetUrl, { cache: "no-store" }); if (!res.ok) throw new Error(`Google Sheet HTTP error! status: ${res.status}`); const text = await res.text(); if (text.startsWith('// API runner') || text.includes("<html")) { throw new Error("Google Sheet API returned an error page or unexpected content, not JSON."); } const jsonText = text.substring(text.indexOf('(') + 1, text.lastIndexOf(')')); const json = JSON.parse(jsonText); if (!json.table || !json.table.rows || json.table.rows.length === 0) { console.warn("Google Sheet is empty or invalid. Using fallback data if available."); if (currentData.length === 0) displayFullPageMessage(true, "কোনো তথ্য পাওয়া যায়নি।"); } else { const sheetDataRaw = json.table.rows.map(row => { const c = row.c; return { name: c && c[0] && c[0].v !== null ? String(c[0].v) : "", years: c && c[1] && c[1].v !== null ? String(c[1].v) : "", empire: c && c[2] && c[2].v !== null ? String(c[2].v) : "", region: c && c[3] && c[3].v !== null ? String(c[3].v) : "", photo: c && c[4] && c[4].v !== null ? String(c[4].v) : "", badge: c && c[5] && c[5].v !== null ? String(c[5].v) : "", brief: c && c[6] && c[6].v !== null ? String(c[6].v) : "", description: c && c[7] && c[7].v !== null ? String(c[7].v) : "", achievements: c && c[8] && c[8].v !== null ? String(c[8].v) : "", victories: c && c[9] && c[9].v !== null ? String(c[9].v) : "", enemies: c && c[10] && c[10].v !== null ? String(c[10].v) : "", notable: c && c[11] && c[11].v !== null ? String(c[11].v) : "", tag: c && c[12] && c[12].v !== null ? String(c[12].v) : "", reignPeriod: c && c[13] && c[13].v !== null ? String(c[13].v) : "", detailBgImage: c && c[14] && c[14].v !== null ? String(c[14].v) : "", extraDetails: c && c[15] && c[15].v !== null ? String(c[15].v) : "", specialEvents: c && c[16] && c[16].v !== null ? String(c[16].v) : "[]" }; }).filter(p => p.name && p.name.trim() !== ""); const processedSheetData = processFetchedData(sheetDataRaw); if (processedSheetData.length > 0) { currentData = processedSheetData; console.log("Google Sheet থেকে ডেটা সফলভাবে লোড ও প্রসেস হয়েছে:", currentData.length, "profiles"); } else { console.warn("No valid data from Google Sheet. Using fallback if available."); if (currentData.length === 0) displayFullPageMessage(true, "কোনো তথ্য পাওয়া যায়নি।"); } } } catch (error) { console.error("Google Sheet ডেটা লোডে সমস্যা:", error); showTopOfflineMessage(true, "সার্ভার থেকে তথ্য আনতে সমস্যা হচ্ছে। স্থানীয়ভাবে সংরক্ষিত তথ্য দেখানো হচ্ছে।"); if (currentData.length > 0) { console.log("লোকাল (হার্ডকোডেড) ডেটা ব্যবহার করা হচ্ছে।"); displayFullPageMessage(false); } else { displayFullPageMessage(true, "তথ্য লোড করা সম্ভব হয়নি। অনুগ্রহ করে ইন্টারনেট সংযোগ পরীক্ষা করুন অথবা কিছুক্ষণ পর চেষ্টা করুন।"); } } } else { console.log("ইন্টারনেট সংযোগ নেই। লোকাল (হার্ডকোডেড) ডেটা ব্যবহার করা হচ্ছে..."); if (currentData.length > 0) { console.log("লোকাল (হার্ডকোডেড) ডেটা সফলভাবে লোড হয়েছে (অফলাইন):", currentData.length, "profiles"); showTopOfflineMessage(true, "আপনি এখন অফলাইন আছেন। স্থানীয়ভাবে সংরক্ষিত তথ্য দেখানো হচ্ছে।"); displayFullPageMessage(false); } else { displayFullPageMessage(true, "এই মুহূর্তে তথ্য নেই। অনুগ্রহ করে ইন্টারনেট সংযোগ চালু করে আবার চেষ্টা করুন।"); showTopOfflineMessage(false); } } if (!(fullPageOfflineMessageEl && !fullPageOfflineMessageEl.classList.contains('hidden'))) { applyFiltersAndRender(); } }
+    
+    // --- Helper functions for theme-gradient-teal ---
+    function getTealThemeTagColorClass(tag) {
+        const tagLower = (tag || '').toLowerCase();
+        const colorMap = { 'সুলতান': 'bg-[#a67c4f] text-[#fffde9]', 'বীর': 'bg-[#c0392b] text-[#fffde9]', 'খলিফা': 'bg-[#1abc9c] text-[#fffde9]', 'নবী': 'bg-[#8e44ad] text-[#fffde9]', 'আমির': 'bg-[#3498db] text-[#fffde9]', 'শাহ': 'bg-[#e67e22] text-[#fffde9]', 'মালিক': 'bg-[#34495e] text-[#fffde9]', 'ওয়াজির': 'bg-[#2ecc71] text-[#fffde9]', 'ইমাম': 'bg-[#d35400] text-[#fffde9]', 'সৈনিক': 'bg-[#e74c3c] text-[#fffde9]', 'জেনারেল': 'bg-[#16a085] text-[#fffde9]', 'ফকির': 'bg-[#2c3e50] text-[#fffde9]', 'মুফতি': 'bg-[#9b59b6] text-[#fffde9]', 'কাজী': 'bg-[#27ae60] text-[#fffde9]', 'সাহাবি': 'bg-[#2980b9] text-[#fffde9]', 'শাইখ': 'bg-[#8e44ad] text-[#fffde9]', 'সিপাহি': 'bg-[#f39c12] text-[#fffde9]', 'তাবেঈ': 'bg-[#d35400] text-[#fffde9]', 'তাবে তাবেঈ': 'bg-[#34495e] text-[#fffde9]', 'আলেম': 'bg-[#16a085] text-[#fffde9]', 'মুজাহিদ': 'bg-[#e74c3c] text-[#fffde9]', 'কমান্ডার': 'bg-[#fuchsia-500] text-white', 'বাবর': 'bg-[#f39c12] text-[#fffde9]', 'নওয়াব': 'bg-[#2980b9] text-[#fffde9]', 'খান': 'bg-[#c0392b] text-[#fffde9]', 'খাজা': 'bg-[#1abc9c] text-[#fffde9]', 'মাহদী': 'bg-[#27ae60] text-[#fffde9]', 'আল-কুতুব': 'bg-[#8e44ad] text-[#fffde9]', 'গাজী': 'bg-[#3498db] text-[#fffde9]', 'আযীম': 'bg-[#2ecc71] text-[#fffde9]', 'ফাতিহ': 'bg-[#7a5c25] text-[#fffde9]' };
+        return colorMap[tagLower] || 'bg-[#7a5c25] text-[#fffde9]'; 
+    }
+    function getTealThemeBadgeColorClass(tagForBadge) { 
+        const tagLower = (tagForBadge || '').toLowerCase();
+        const colorMap = { 'সুলতান': 'bg-yellow-500 text-black', 'বীর': 'bg-red-500 text-white', 'খলিফা': 'bg-green-500 text-white', 'নবী': 'bg-purple-500 text-white', 'আমির': 'bg-blue-500 text-white', 'শাহ': 'bg-orange-500 text-white', 'মালিক': 'bg-gray-700 text-white', 'ওয়াজির': 'bg-teal-500 text-white', 'ইমাম': 'bg-amber-500 text-white', 'সৈনিক': 'bg-pink-500 text-white', 'জেনারেল': 'bg-emerald-500 text-white', 'ফকির': 'bg-slate-700 text-white', 'মুফতি': 'bg-indigo-500 text-white', 'কাজী': 'bg-lime-600 text-white', 'সাহাবি': 'bg-sky-600 text-white', 'শাইখ': 'bg-violet-700 text-white', 'সিপাহি': 'bg-amber-600 text-white', 'তাবেঈ': 'bg-orange-700 text-white', 'তাবে তাবেঈ': 'bg-stone-600 text-white', 'আলেম': 'bg-emerald-700 text-white', 'মুজাহিদ': 'bg-rose-600 text-white', 'কমান্ডার': 'bg-fuchsia-500 text-white', 'বাবর': 'bg-amber-700 text-white', 'নওয়াব': 'bg-cyan-600 text-white', 'খান': 'bg-red-600 text-white', 'খাজা': 'bg-teal-600 text-white', 'মাহদী': 'bg-emerald-600 text-white', 'আল-কুতুব': 'bg-purple-600 text-white', 'গাজী': 'bg-blue-700 text-white', 'আযীম': 'bg-teal-800 text-white', 'ফাতিহ': 'bg-yellow-600 text-black' };
+        return colorMap[tagLower] || 'bg-gray-500 text-white';
+    }
+    function getTealThemeIconForTagOrBadge(tag) {
+        const tagLower = (tag || '').toLowerCase();
+        const iconMap = { 'সুলতান': 'crown', 'বীর': 'shield', 'খলিফা': 'book-key', 'নবী': 'feather', 'আমির': 'flag', 'শাহ': 'star', 'মালিক': 'key', 'ওয়াজির': 'clipboard', 'ইমাম': 'book-open', 'সৈনিক': 'sword', 'জেনারেল': 'shield-check', 'ফকির': 'leaf', 'মুফতি': 'scroll', 'কাজী': 'scales', 'সাহাবি': 'users', 'শাইখ': 'archive', 'সিপাহি': 'activity', 'তাবেঈ': 'globe', 'তাবে তাবেঈ': 'map', 'আলেম': 'pen-tool', 'মুজাহিদ': 'shield-half', 'কমান্ডার': 'crosshair', 'বাবর': 'anchor', 'নওয়াব': 'zap', 'খান': 'target', 'খাজা': 'compass', 'মাহদী': 'sun', 'আল-কুতুব': 'bookmark', 'গাজী': 'moon', 'আযীম': 'award', 'ফাতিহ': 'trophy' };
+        return iconMap[tagLower] || 'star';
+    }
+
+    function renderProfiles(data) {
+        const container = document.getElementById("profileContainer");
+        container.innerHTML = '';
+        tealThemeCardIndex = 0; 
+        if (data.length === 0 && (profileContainerEl && !profileContainerEl.classList.contains('hidden'))) {
+            container.innerHTML = `<p class="text-center text-gray-400 col-span-full" style="font-family: 'Atma', cursive; color: #d8c8b8;">কোনো প্রোফাইল পাওয়া যায়নি।</p>`;
+            return;
+        }
+        data.forEach((profile, index) => {
+            const cardWrapper = document.createElement("div");
+            cardWrapper.className = "profile-plaque-container"; 
+            const plaqueId = `profilePlaque-${profile.name.replace(/[^a-zA-Z0-9]/g, '-')}-${index}`;
+            cardWrapper.id = plaqueId;
+            const primaryYear = getPrimaryYear(profile.years);
+            if (primaryYear !== null) { cardWrapper.dataset.primaryYear = primaryYear; }
+            const reignDuration = calculateReignDuration(profile.reignPeriod);
+            const reignDurationText = reignDuration !== null ? `(${toBengaliNumerals(reignDuration)} বছর)` : '';
+            const reignPeriodDisplay = profile.reignPeriod ? `${toBengaliNumerals(profile.reignPeriod)} ${reignDurationText}` : 'N/A';
+            const speakName = profile.name || '';
+            const speakBrief = (profile.brief || '').replace(/'/g, "\\'");
+            const speakDescription = (profile.description || '').replace(/'/g, "\\'").replace(/<[^>]+>/g, '').replace(/\{\{.*?\}\}/g, '').replace(/\[\[.*?\]\]/g, '').trim();
+
+            if (appSettings.cardTheme && appSettings.cardTheme !== 'default') {
+                cardWrapper.classList.add(appSettings.cardTheme);
+                if (appSettings.cardTheme === 'theme-gradient-teal') {
+                    const gradient = gradientsForTealTheme[tealThemeCardIndex % gradientsForTealTheme.length];
+                    const [fromColor, toColor] = gradient.match(/#\w+/g) || ['#1f4a4a', '#2d6966']; 
+                    cardWrapper.style.backgroundImage = `linear-gradient(to bottom right, ${fromColor}, ${toColor})`;
+                    tealThemeCardIndex++;
+                } else {
+                     cardWrapper.style.backgroundImage = ''; 
+                }
+            }
+            
+                                    if (appSettings.cardTheme === 'theme-gradient-teal') {
+                cardWrapper.setAttribute('onclick', `toggleDetails(event, ${JSON.stringify(profile)}, '${plaqueId}')`);
+                const tagColorClass = getTealThemeTagColorClass(profile.tag);
+                const badgeColorClass = getTealThemeBadgeColorClass(profile.tag); 
+                const badgeIcon = getTealThemeIconForTagOrBadge(profile.badge || profile.tag); 
+
+                cardWrapper.innerHTML = `
+                    <div class="profile-photo-pinned-section">  
+                        <div class="profile-photo-wrapper-tilted"> 
+                            <img src="${profile.photo}" alt="${profile.name}" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\\'w-full h-full flex items-center justify-center text-xs text-gray-500 bg-gray-100\\'>চিত্র নেই</div>'"/>
+                        </div>
+                        
+
+                        <div class="profile-identity-details"> 
+                            <div class="name-and-tag-bar">
+                                <h2 class="profile-main-title text-stroke">${profile.name}</h2>
+                                ${profile.tag ? `<span class="profile-tag-display ${tagColorClass}">${profile.tag}</span>` : ''}
+                            </div>
+                            <div class="years-bar">
+                                 <span class="red-dot"></span>
+                                 <span class="profile-ruling-years">${profile.years || "N/A"} ${profile.reignPeriod ? `(${reignPeriodDisplay})` : ''}</span>
+                            </div>
+                        </div>
+                    </div>
+                    ${profile.badge ? `
+                    <div class="mt-2">
+                        <span class="profile-badge-display ${badgeColorClass}">
+                            <i data-lucide="${badgeIcon}"></i> 
+                            ${profile.badge}
+                        </span>
+                    </div>` : ''}
+                    <div class="info-items-square-lg border-4 border-yellow-500 p-4 rounded-sm">
+                          
+                        
+<div class="relative border-4 border-[#D4AF37] bg-transparent p-6 rounded-md shadow-md">
+  <div class="absolute -top-3 left-4 bg-[#D4AF37] text-white px-3 py-1 font-bold rounded shadow rotate-[-6deg]">
+    ﷽
+  </div>
+  
+                            <p class="card-info-item text-stroke"><i data-lucide="info"></i><span><strong class="info-label">পরিচিতি:</strong> ${profile.brief || "N/A"}</span></p>
+                            <p class="card-info-item text-stroke"><i data-lucide="medal"></i><span><strong class="info-label">অর্জন:</strong> ${profile.achievements || "N/A"}</span></p>
+                            <p class="card-info-item text-stroke"><i data-lucide="trophy"></i><span><strong class="info-label">বিজয়:</strong> ${profile.victories || "N/A"}</span></p>
+                            ${profile.enemies ? `<p class="card-info-item text-stroke"><i data-lucide="swords"></i><span><strong class="info-label">প্রতিপক্ষ:</strong> ${profile.enemies}</span></p>` : ''}
+                          </div>  
+                    </div>
+
+                   
+                    <div class="card-actions-grid mt-3">
+                        <button onclick="speakCardDetails(event, '${speakName}', '${speakBrief}', '${speakDescription}')" class="details-download-button-styled"> <i data-lucide="volume-2"></i>শুনুন </button>
+                        <button onclick="printCardWithPropagationStop(event, '${plaqueId}', '${profile.name.replace(/'/g, "\\'")}')" class="details-download-button-styled"> <i data-lucide="printer"></i>প্রিন্ট </button>
+                        <button onclick="downloadCardWithPropagationStop(event, '${plaqueId}', '${profile.name.replace(/'/g, "\\'")}')" class="details-download-button-styled"> <i data-lucide="download"></i>ডাউনলোড </button>
+                    </div>
+                   
+                    <div class="details-placeholder mt-auto pt-2"></div> 
+                     
+             
+                    
+            
+                    <!-- Action buttons moved to expanded details for Teal theme -->
+                    `;
+            } else { 
+                const clickableAreaId = `cardClickableArea-${index}`;
+                cardWrapper.innerHTML = `
+                    <div id="${clickableAreaId}" class="h-full flex flex-col cursor-pointer" onclick='toggleDetails(event, ${JSON.stringify(profile)}, "${clickableAreaId}")'>
+                        <div class="profile-photo-pinned-section">
+                            <div class="profile-photo-wrapper-tilted">
+                                <img src="${profile.photo}" alt="${profile.name}" onerror="this.src='https://via.placeholder.com/100x120/604020/f0e8e0?text=চিত্র+নেই'; this.onerror=null;"/>
+                            </div>
+                            <div class="profile-identity-details">
+                                <h2 class="profile-main-title">${profile.name}</h2>
+                                <p class="profile-ruling-years"><i data-lucide="calendar-days"></i><span>${profile.years}</span></p>
+                                ${profile.reignPeriod ? `<p class="reign-period-text-card"><i data-lucide="history"></i><span>শাসন: ${reignPeriodDisplay}</span></p>` : ''}
+                            </div>
+                        </div>
+                        <div class="tag-badge-group flex flex-wrap items-center gap-2 mb-4">
+                            <span class="tag-badge-item ${getTagSpecificClasses(profile.tag)}"><i data-lucide="${getIconForTag(profile.tag)}"></i><span>${profile.tag || 'অজানা'}</span></span>
+                            ${profile.badge ? `<span class="tag-badge-item ${getTagSpecificClasses(profile.badge)}"><i data-lucide="award"></i><span>${profile.badge}</span></span>` : ''}
+                        </div>
+                        <div class="space-y-2 flex-grow">
+                            <div class="card-info-item"><i data-lucide="info"></i><div><strong class="info-label">পরিচিতি:</strong> <span>${profile.brief}</span></div></div>
+                            <div class="card-info-item"><i data-lucide="medal"></i><div><strong class="info-label">অর্জন:</strong> <span>${profile.achievements}</span></div></div>
+                            <div class="card-info-item"><i data-lucide="trophy"></i><div><strong class="info-label">বিজয়:</strong> <span>${profile.victories}</span></div></div>
+                            ${profile.enemies ? `<div class="card-info-item"><i data-lucide="swords"></i><div><strong class="info-label">প্রতিপক্ষ:</strong> <span>${profile.enemies}</span></div></div>` : ''}
+                        </div>
+                        <div class="details-placeholder mt-auto pt-3"></div> 
+                    </div>
+                    <div class="card-actions-grid">
+                        <button onclick="speakCardDetails(event, '${speakName}', '${speakBrief}', '${speakDescription}')" class="details-download-button-styled"> <i data-lucide="volume-2"></i>শুনুন </button>
+                        <button onclick="printCard('${plaqueId}', event)" class="details-download-button-styled"> <i data-lucide="printer"></i>প্রিন্ট </button>
+                        <button onclick="event.stopPropagation(); downloadCard('${plaqueId}', '${profile.name.replace(/'/g, "\\'")}')" class="details-download-button-styled"> <i data-lucide="download"></i>ডাউনলোড </button>
+                    </div>`;
+            }
+            container.appendChild(cardWrapper);
+        });
+        if (typeof lucide !== 'undefined' && lucide.createIcons) lucide.createIcons();
+    }
+
+    function toggleDetails(event, profile, clickableAreaIdOrElement) {
+        const isTealTheme = appSettings.cardTheme === 'theme-gradient-teal';
+        let clickableAreaElement, plaqueContainerElement, detailsPlaceholder;
+
+        if (isTealTheme) {
+            plaqueContainerElement = document.getElementById(clickableAreaIdOrElement); // clickableAreaIdOrElement is plaqueId for teal
+            if (!plaqueContainerElement) { console.error("Teal Theme: Plaque container not found for ID:", clickableAreaIdOrElement); return; }
+            detailsPlaceholder = plaqueContainerElement.querySelector(".details-placeholder");
+        } else {
+            if (event.target.closest('.details-title') || event.target.closest('.details-download-button-styled') || event.target.closest('button[onclick*="speakCardDetails"]') || event.target.closest('button[onclick*="printCard"]')) {
+                 return;
+            }
+            clickableAreaElement = document.getElementById(clickableAreaIdOrElement);
+            if (!clickableAreaElement) { console.error("Card clickable area element not found:", clickableAreaIdOrElement); return; }
+            plaqueContainerElement = clickableAreaElement.closest('.profile-plaque-container');
+            if (!plaqueContainerElement) { console.error("Plaque container not found for:", clickableAreaIdOrElement); return; }
+            detailsPlaceholder = clickableAreaElement.querySelector(".details-placeholder");
+        }
+        
+        if (!plaqueContainerElement) { console.error("Plaque container element determination failed."); return; }
+        if (!detailsPlaceholder) { console.error("Details placeholder not found in card structure for", plaqueContainerElement.id); return; }
+
+        const plaqueContainerId = plaqueContainerElement.id;
+        const existingDetails = detailsPlaceholder.querySelector(".details-content-expanded, .details"); 
+
+        if (existingDetails) {
+            existingDetails.style.maxHeight = '0';
+            existingDetails.style.opacity = '0';
+            existingDetails.style.paddingTop = '0';
+            existingDetails.style.paddingBottom = '0';
+            existingDetails.style.marginTop = '0';
+            if (!isTealTheme) existingDetails.style.borderWidth = '0';
+            
+            setTimeout(() => { existingDetails.remove(); }, 400); 
+            
+            plaqueContainerElement.dataset.detailsVisible = 'false';
+            return;
+        }
+
+        const detailsDiv = document.createElement("div");
+        const extraDetailsData = profile.extraDetails || "কোনো অতিরিক্ত বিবরণ নেই।";
+        const profileNameForTitle = profile.name || "স্মারক";
+        const speakName = profile.name || '';
+        const speakBrief = (profile.brief || '').replace(/'/g, "\\'");
+        const speakDescription = (profile.description || '').replace(/'/g, "\\'").replace(/<[^>]+>/g, '').replace(/\{\{.*?\}\}/g, '').replace(/\[\[.*?\]\]/g, '').trim();
+
+                if (isTealTheme) {
+            detailsDiv.classList.add("details"); 
+            detailsDiv.style.position = 'relative'; 
+            detailsDiv.style.maxHeight = '0';
+            detailsDiv.style.opacity = '0';
+            detailsDiv.style.overflow = 'hidden';
+            detailsDiv.style.transition = 'max-height 0.4s ease-in-out, opacity 0.4s ease-in-out, padding 0.4s ease-in-out, margin-top 0.4s ease-in-out';
+            
+            // এই অংশটি পরিবর্তিত হবে
+            const titleAreaHTML = `
+            
+            
+            
+      
+            
+ <div  
+  style="display: flex; align-items: center; justify-content: center; margin: 2rem 0; cursor: pointer;" 
+  onclick="handleExtraDetailsClick(event)" 
+  data-extra-details="${encodeURIComponent(extraDetailsData)}" 
+  data-profile-name="${encodeURIComponent(profileNameForTitle)}">
+
+  <span style="flex: 1; height: 2px; background-color: #F9C055; margin: 0 1rem;"></span>
+
+  <h3 class="details-title-button" 
+      style="
+        padding: 0.5rem 1.75rem;
+        border: 2px solid transparent;
+        border-radius: 9999px;
+        font-size: clamp(0.9rem, 1vw, 1.2rem);
+        font-weight: bold;
+        margin: 0;
+        display: inline-flex;
+        align-items: center;
+        font-family: 'Atma', cursive;
+        background-image:
+          linear-gradient(#134E4A, #134E4A),
+          linear-gradient(to right, #f9c055, #facc15, #f9c055);
+        background-origin: border-box;
+        background-clip: padding-box, border-box;
+        color: #F9C055;
+        position: relative;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        transition: all 0.3s ease;
+      "
+      onmouseover="this.style.boxShadow='0 0 12px #f9c05580, 0 0 20px #f9c05550'; this.style.transform='scale(1.05)'"
+      onmouseout="this.style.boxShadow='0 4px 8px rgba(0,0,0,0.2)'; this.style.transform='scale(1)'"
+  >
+    বিস্তারিত 
+    <i data-lucide="book-open" class="inline-block ml-2 w-4 h-4 relative -top-px"></i>
+  </h3>
+
+  <span style="flex: 1; height: 2px; background-color: #F9C055; margin: 0 1rem;"></span>
+
+</div>`;
+            const contentBoxHTML = `
+              <div class="square-lg border-4 border-yellow-500 p-4 rounded-sm">     <div clas"actual-teal-content-box"" >
+                    <p class="flex items-start gap-2"><i data-lucide="calendar"></i><span><strong class="details-label-text"> শাসনকাল:</strong> ${profile.reignPeriod || profile.years}</span></p>
+                    <p class="flex items-start gap-2 mt-1"><i data-lucide="map"></i><span><strong class="details-label-text"> অঞ্চল:</strong> ${profile.region || "N/A"}</span></p>
+                    <p class="flex items-start gap-2 mt-1"><i data-lucide="shield-half"></i><span><strong class="details-label-text"> সাম্রাজ্য:</strong> ${profile.empire || "N/A"}</span></p>
+                    <p class="flex items-start gap-2 mt-1"><i data-lucide="align-left"></i><span><strong class="details-label-text"> পূর্ণ বিবরণ:</strong> ${profile.description || "N/A"}</span></p>
+                    <p class="flex items-start gap-2 mt-1"><i data-lucide="star"></i><span><strong class="details-label-text"> অনন্য কাজ:</strong> ${profile.notable || "N/A"}</span></p>
+                </div>`;
+            
+            const actionButtonsHTML = `
+                <div class="card-actions-grid mt-3">
+                     <button onclick="speakCardDetails(event, '${speakName}', '${speakBrief}', '${speakDescription}')" class="details-download-button-styled"> <i data-lucide="volume-2"></i>শুনুন </button>
+                    <button onclick="printCardWithPropagationStop(event, '${plaqueContainerId}', '${profile.name.replace(/'/g, "\\'")}')" class="details-download-button-styled"> <i data-lucide="printer"></i>প্রিন্ট </button>
+                    <button onclick="downloadCardWithPropagationStop(event, '${plaqueContainerId}', '${profile.name.replace(/'/g, "\\'")}')" class="details-download-button-styled"> <i data-lucide="download"></i>ডাউনলোড </button>
+                </div>`;
+
+            detailsDiv.innerHTML = titleAreaHTML + contentBoxHTML + actionButtonsHTML;
+            // ... বাকি কোড অপরিবর্তিত ...
+        
+        } else { // For default and dark-poster themes
+            detailsDiv.classList.add("details-content-expanded");
+            if (profile.detailBgImage && profile.detailBgImage.trim() !== "" && appSettings.cardTheme !== 'theme-dark-poster') { 
+                const trimmedUrl = profile.detailBgImage.trim();
+                const overlayColor = "rgba(0, 0, 0, 0.65)";
+                detailsDiv.style.backgroundImage = `linear-gradient(${overlayColor}, ${overlayColor}), url('${trimmedUrl}')`;
+                detailsDiv.style.backgroundSize = 'cover'; detailsDiv.style.backgroundPosition = 'center center'; detailsDiv.style.backgroundRepeat = 'no-repeat';
+            }
+            detailsDiv.style.maxHeight = '0'; detailsDiv.style.opacity = '0'; detailsDiv.style.overflow = 'hidden';
+            detailsDiv.style.paddingTop = '0'; detailsDiv.style.paddingBottom = '0'; detailsDiv.style.marginTop = '0'; detailsDiv.style.borderWidth = '0';
+            detailsDiv.style.transition = 'all 0.45s cubic-bezier(0.25, 0.8, 0.25, 1)';
+            detailsDiv.innerHTML = `
+                <h3 class="details-title" data-extra-details="${encodeURIComponent(extraDetailsData)}" data-profile-name="${encodeURIComponent(profileNameForTitle)}" onclick="handleExtraDetailsClick(event)"> বিস্তারিত বিবরণ <i data-lucide="book-open" class="inline-block ml-1 w-5 h-5"></i> </h3>
+                <div class="space-y-3">
+                    <div class="flex"><i data-lucide="map-pin"></i><div><strong class="details-label-text">অঞ্চল:</strong> <span>${String(profile.region || "")}</span></div></div>
+                    <div class="flex"><i data-lucide="shield-half"></i><div><strong class="details-label-text">সাম্রাজ্য:</strong> <span>${String(profile.empire || "N/A")}</span></div></div>
+                    <div class="flex"><i data-lucide="align-left"></i><div><strong class="details-label-text">পূর্ণ বিবরণ:</strong> <span>${String(profile.description || "").replace(/\{\{h1:(.*?)\}\}/g, "$1").replace(/\[\[h2:(.*?)\]\]/g, "$1")}</span></div></div>
+                    <div class="flex"><i data-lucide="bookmark-check"></i><div><strong class="details-label-text">অনন্য কাজ:</strong> <span>${String(profile.notable || "")}</span></div></div>
+                </div>
+                <div class="card-actions-grid mt-5">
+                    <button onclick="speakCardDetails(event, '${speakName}', '${speakBrief}', '${speakDescription}')" class="details-download-button-styled"> <i data-lucide="volume-2"></i>শুনুন </button>
+                    <button onclick="printCardWithPropagationStop(event, '${plaqueContainerId}', '${profile.name.replace(/'/g, "\\'")}')" class="details-download-button-styled"> <i data-lucide="printer"></i>প্রিন্ট </button>
+                    <button onclick="downloadCardWithPropagationStop(event, '${plaqueContainerId}', '${profile.name.replace(/'/g, "\\'")}')" class="details-download-button-styled"> <i data-lucide="download"></i>ডাউনলোড </button>
+                </div>`;
+        }
+        
+        detailsPlaceholder.appendChild(detailsDiv);
+        if (typeof lucide !== 'undefined' && lucide.createIcons) lucide.createIcons({ context: detailsDiv });
+        
+        plaqueContainerElement.dataset.detailsVisible = 'true';
+
+        requestAnimationFrame(() => { 
+            detailsDiv.style.maxHeight = '1500px'; 
+            detailsDiv.style.opacity = '1';
+            if (!isTealTheme) { 
+                detailsDiv.style.paddingTop = '20px'; detailsDiv.style.paddingBottom = '20px';
+                detailsDiv.style.marginTop = '15px'; detailsDiv.style.borderWidth = '4px';
+            } else { 
+                 // For teal, CSS rules for .details and .details > .actual-teal-content-box handle padding/margin
+            }
+        });
+    }
+
+    function downloadCardWithPropagationStop(event, plaqueElementId, profileName) { if (event) event.stopPropagation(); downloadCard(plaqueElementId, profileName); }
+    async function downloadCard(plaqueElementId, profileName) { const plaqueContainer = document.getElementById(plaqueElementId); if (!plaqueContainer) { console.error("Plaque container (ID:", plaqueElementId, ") not found"); alert("ডাউনলোডের জন্য কার্ড খুঁজে পাওয়া যায়নি।"); return; } let originalTransform = plaqueContainer.style.transform; let originalBoxShadow = plaqueContainer.style.boxShadow; plaqueContainer.style.transform = 'none'; plaqueContainer.style.boxShadow = `inset 0 0 0 3px #805020, inset 0 0 0 6px #c0a070, inset 0 0 30px rgba(0,0,0,0.3), 5px 5px 15px rgba(0,0,0,0.4)`; 
+        if (appSettings.cardTheme === 'theme-dark-poster') { plaqueContainer.style.boxShadow = `0px 0px 0px 3px #c8ae8a, inset 0 0 15px rgba(0,0,0,0.3), 5px 5px 15px rgba(0,0,0,0.5)`; }
+        else if (appSettings.cardTheme === 'theme-gradient-teal') { plaqueContainer.style.boxShadow = `0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06)`; }
+        
+        const detailsPlaceholder = plaqueContainer.querySelector('.details-placeholder');
+        const detailsDiv = detailsPlaceholder ? detailsPlaceholder.querySelector('.details-content-expanded, .details') : null;
+
+
+        let detailsTemporarilyShown = false; let originalDetailsStyles = {};
+        if (detailsDiv && (detailsDiv.style.maxHeight === '0px' || !detailsDiv.style.maxHeight || detailsDiv.style.opacity === '0' || getComputedStyle(detailsDiv).display === 'none')) {
+            originalDetailsStyles = { 
+                maxHeight: detailsDiv.style.maxHeight, opacity: detailsDiv.style.opacity, 
+                paddingTop: detailsDiv.style.paddingTop, paddingBottom: detailsDiv.style.paddingBottom, 
+                marginTop: detailsDiv.style.marginTop, borderWidth: detailsDiv.style.borderWidth, 
+                transition: detailsDiv.style.transition, display: detailsDiv.style.display 
+            };
+            detailsDiv.style.transition = 'none'; 
+            detailsDiv.style.display = 'block'; 
+            detailsDiv.style.maxHeight = '1500px'; detailsDiv.style.opacity = '1'; 
+            if (appSettings.cardTheme !== 'theme-gradient-teal') { 
+                detailsDiv.style.paddingTop = '20px'; detailsDiv.style.paddingBottom = '20px'; 
+                detailsDiv.style.marginTop = '15px'; detailsDiv.style.borderWidth = '4px'; 
+            }
+            detailsTemporarilyShown = true; 
+            await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve))); 
+        }
+        try {
+            const canvas = await html2canvas(plaqueContainer, { allowTaint: true, useCORS: true, backgroundColor: getComputedStyle(plaqueContainer).backgroundColor, scale: 2.5, logging: false,
+                onclone: (clonedDoc) => {
+                    clonedDoc.querySelectorAll('*').forEach(el => { el.style.textRendering = 'optimizeLegibility'; el.style.imageRendering = 'optimizeQuality'; });
+                    clonedDoc.querySelectorAll('svg.lucide').forEach(svg => { const computedStyle = getComputedStyle(svg); svg.setAttribute('width', computedStyle.width); svg.setAttribute('height', computedStyle.height); svg.style.color = computedStyle.color; svg.style.strokeWidth = computedStyle.strokeWidth; });
+                    const clonedPlaque = clonedDoc.getElementById(plaqueElementId);
+                    if (clonedPlaque) {
+                        const clonedDetailsPlaceholder = clonedPlaque.querySelector('.details-placeholder');
+                        const clonedDetails = clonedDetailsPlaceholder ? clonedDetailsPlaceholder.querySelector('.details-content-expanded, .details') : null;
+
+                        if (clonedDetails && detailsTemporarilyShown) { 
+                            clonedDetails.style.display = 'block';
+                            clonedDetails.style.maxHeight = '1500px'; clonedDetails.style.opacity = '1'; 
+                            if (appSettings.cardTheme !== 'theme-gradient-teal') { 
+                                clonedDetails.style.paddingTop = '20px'; clonedDetails.style.paddingBottom = '20px'; 
+                                clonedDetails.style.marginTop = '15px'; clonedDetails.style.borderWidth = '4px'; 
+                            }
+                        }
+                        if(appSettings.cardTheme === 'theme-gradient-teal' && plaqueContainer.style.backgroundImage) { 
+                            clonedPlaque.style.backgroundImage = plaqueContainer.style.backgroundImage; 
+                        }
+                    }
+                }
+            });
+            plaqueContainer.style.transform = originalTransform; plaqueContainer.style.boxShadow = originalBoxShadow;
+            if (detailsTemporarilyShown && detailsDiv) { 
+                detailsDiv.style.transition = originalDetailsStyles.transition || ''; 
+                Object.assign(detailsDiv.style, originalDetailsStyles); 
+            }
+            const link = document.createElement("a"); link.href = canvas.toDataURL("image/png"); link.download = `${profileName.replace(/\s+/g, '_')}_স্মারক.png`; link.click();
+        } catch (error) { console.error("স্মারক ডাউনলোড সমস্যা:", error); alert("দুঃখিত, স্মারকটি ডাউনলোড করা যায়নি।"); plaqueContainer.style.transform = originalTransform; plaqueContainer.style.boxShadow = originalBoxShadow; if (detailsTemporarilyShown && detailsDiv) { detailsDiv.style.transition = originalDetailsStyles.transition || ''; Object.assign(detailsDiv.style, originalDetailsStyles); } }
+    }
+    
+    function printCard(plaqueElementId, event) {
+        if (event) event.stopPropagation();
+        const plaqueContainer = document.getElementById(plaqueElementId);
+        if (!plaqueContainer) { console.error("Plaque container (ID:", plaqueElementId, ") not found for printing."); alert("প্রিন্টের জন্য কার্ড খুঁজে পাওয়া যায়নি।"); return; }
+        
+        const detailsPlaceholder = plaqueContainer.querySelector('.details-placeholder');
+        const detailsDiv = detailsPlaceholder ? detailsPlaceholder.querySelector('.details-content-expanded, .details') : null;
+
+
+        let detailsWereHidden = false; let originalDetailsStyles = {};
+        if (detailsDiv && (detailsDiv.style.maxHeight === '0px' || !detailsDiv.style.maxHeight || detailsDiv.style.opacity === '0' || getComputedStyle(detailsDiv).display === 'none')) {
+            detailsWereHidden = true;
+            originalDetailsStyles = { 
+                maxHeight: detailsDiv.style.maxHeight, opacity: detailsDiv.style.opacity, 
+                paddingTop: detailsDiv.style.paddingTop, paddingBottom: detailsDiv.style.paddingBottom, 
+                marginTop: detailsDiv.style.marginTop, borderWidth: detailsDiv.style.borderWidth, 
+                transition: detailsDiv.style.transition, display: detailsDiv.style.display 
+            };
+            detailsDiv.style.transition = 'none'; 
+            detailsDiv.style.display = 'block'; 
+            detailsDiv.style.maxHeight = '1500px'; detailsDiv.style.opacity = '1'; 
+            if (appSettings.cardTheme !== 'theme-gradient-teal') { 
+                detailsDiv.style.paddingTop = '20px'; detailsDiv.style.paddingBottom = '20px'; 
+                detailsDiv.style.marginTop = '15px'; detailsDiv.style.borderWidth = '4px'; 
+            }
+        }
+        plaqueContainer.classList.add('printable-card'); document.body.classList.add('printing-active');
+        
+        if (appSettings.cardTheme === 'theme-gradient-teal' && plaqueContainer.style.backgroundImage) {
+            // Ensure gradient background for print
+        }
+        setTimeout(() => {
+            window.print();
+            setTimeout(() => {
+                plaqueContainer.classList.remove('printable-card'); document.body.classList.remove('printing-active');
+                if (detailsWereHidden && detailsDiv) { 
+                    detailsDiv.style.transition = originalDetailsStyles.transition || 'all 0.45s cubic-bezier(0.25, 0.8, 0.25, 1)'; 
+                    Object.assign(detailsDiv.style, originalDetailsStyles); 
+                }
+            }, 500); 
+        }, 250); 
+    }
+    function printCardWithPropagationStop(event, plaqueElementId, profileName) { if (event) event.stopPropagation(); printCard(plaqueElementId, event); }
+
+    function loadVoices() { voices = speechSynth.getVoices(); }
+    if (speechSynth && typeof speechSynth.onvoiceschanged !== 'undefined') { speechSynth.onvoiceschanged = loadVoices; }
+    loadVoices(); 
+    function speakCardDetails(event, profileName, profileBrief, profileDescription) { if (event) event.stopPropagation(); if (!speechSynth) { alert("দুঃখিত, আপনার ব্রাউজার টেক্সট-টু-স্পিচ সাপোর্ট করে না।"); return; } if (speechSynth.speaking) { speechSynth.cancel(); if (currentUtterance && currentUtterance._profileName === profileName) { currentUtterance = null; const allSpeakButtons = document.querySelectorAll('button[onclick*="speakCardDetails"] i[data-lucide="volume-x"]'); allSpeakButtons.forEach(icon => { icon.setAttribute('data-lucide', 'volume-2'); if (typeof lucide !== 'undefined') lucide.createIcons({ context: icon.parentElement }); }); return; } } const cleanBriefText = String(profileBrief || "").replace(/<[^>]+>/g, '').trim(); const cleanDescriptionText = String(profileDescription || "").replace(/<[^>]+>/g, '').trim(); const textToSpeak = `নাম: ${profileName}. পরিচিতি: ${cleanBriefText}. ${cleanDescriptionText ? `বিস্তারিত: ${cleanDescriptionText}` : ''}`; currentUtterance = new SpeechSynthesisUtterance(textToSpeak); currentUtterance._profileName = profileName; let bengaliVoice = voices.find(voice => voice.lang.toLowerCase().startsWith('bn')); if (bengaliVoice) { currentUtterance.voice = bengaliVoice; currentUtterance.lang = bengaliVoice.lang; } else { currentUtterance.lang = 'bn-BD'; console.warn("No Bengali (bn) voice found."); } currentUtterance.pitch = 1; currentUtterance.rate = 0.9; currentUtterance.volume = 1; const speakButton = event.currentTarget; const speakButtonIcon = speakButton.querySelector('i[data-lucide]'); const allSpeakButtons = document.querySelectorAll('button[onclick*="speakCardDetails"] i[data-lucide="volume-x"]'); allSpeakButtons.forEach(icon => { if (icon !== speakButtonIcon) { icon.setAttribute('data-lucide', 'volume-2'); if (typeof lucide !== 'undefined') lucide.createIcons({ context: icon.parentElement }); } }); currentUtterance.onstart = () => { if(speakButtonIcon) speakButtonIcon.setAttribute('data-lucide', 'volume-x'); if (typeof lucide !== 'undefined' && lucide.createIcons) lucide.createIcons({context: speakButton}); }; currentUtterance.onend = () => { if(speakButtonIcon) speakButtonIcon.setAttribute('data-lucide', 'volume-2'); if (typeof lucide !== 'undefined' && lucide.createIcons) lucide.createIcons({context: speakButton}); currentUtterance = null; }; currentUtterance.onerror = (errEvent) => { console.error("স্পিচ সিন্থেসিসে সমস্যা:", errEvent); alert("দুঃখিত, অডিও প্লে করতে সমস্যা হচ্ছে।"); if(speakButtonIcon) speakButtonIcon.setAttribute('data-lucide', 'volume-2'); if (typeof lucide !== 'undefined' && lucide.createIcons) lucide.createIcons({context: speakButton}); currentUtterance = null; }; speechSynth.speak(currentUtterance); }
+
+    function applyFiltersAndRender() { if (!searchInput || !currentData) { console.warn("Search input or currentData not ready."); return; } const keyword = searchInput.value.toLowerCase().trim(); const keywords = keyword.split(/\s+/).filter(kw => kw.length > 0); const filtered = currentData.filter(p => { const empireMatch = currentEmpire === 'all' || (p.empire && p.empire.toLowerCase() === currentEmpire.toLowerCase()); if (!empireMatch) return false; if (keywords.length === 0) return true; const profileText = [p.name, p.years, p.empire, p.region, p.badge, p.tag, p.brief, p.description, p.achievements, p.victories, p.enemies, p.notable, p.reignPeriod].map(item => String(item || "").toLowerCase()).join(" "); const profileTextEngNum = [toEnglishNumerals(p.years), toEnglishNumerals(p.reignPeriod)].map(item => String(item || "").toLowerCase()).join(" "); return keywords.every(kw => { const engKwNum = toEnglishNumerals(kw); return profileText.includes(kw) || profileTextEngNum.includes(engKwNum); }); }); renderProfiles(filtered); populateTimelineScrollbar(filtered); applyCardTheme(appSettings.cardTheme); } 
+    const debouncedSearchHandler = debounce(applyFiltersAndRender, 350);
+    function filterByEmpire(empire) { currentEmpire = empire; applyFiltersAndRender(); }
+    function closeModal() { const modal = document.getElementById("modal"); if (modal) modal.classList.add("hidden"); }
+    function refreshProfiles() { if (searchInput) searchInput.value = ""; currentEmpire = 'all'; if (speechSynth && speechSynth.speaking) { speechSynth.cancel(); currentUtterance = null; } return fetchSheetData().then(() => { if (currentData.length > 0) { checkAndShowSpecialDayNotifications(false); } applyCardTheme(appSettings.cardTheme); }); } 
+    function debounce(func, delay) { let timeout; return function(...args) { const context = this; clearTimeout(timeout); timeout = setTimeout(() => func.apply(context, args), delay); }; }
+    const debouncedHandleNavVisibilityOnScroll = debounce(handleNavVisibilityOnScroll, 50);
+    function handleNavVisibilityOnScroll() { if (appSettings.navigationStyle !== 'scroll' || !mainNav || !bottomNavBar || !searchBarContainer || !empireFilterBar) return; let st = window.pageYOffset || document.documentElement.scrollTop; if (Math.abs(st - lastScrollTop) <= 10) return; if (st > lastScrollTop && st > scrollThreshold) { if (!isNavHidden) { mainNav.classList.add('hidden-nav'); bottomNavBar.classList.add('hidden-nav'); if (!searchBarContainer.classList.contains('hidden')) searchBarContainer.classList.add('top-nav-hidden'); if (!empireFilterBar.classList.contains('hidden')) empireFilterBar.classList.add('top-nav-hidden'); isNavHidden = true; adjustLayoutAndStickyElements(); } } else if (st < lastScrollTop || st <= scrollThreshold / 2) { if (isNavHidden) { mainNav.classList.remove('hidden-nav'); bottomNavBar.classList.remove('hidden-nav'); searchBarContainer.classList.remove('top-nav-hidden'); empireFilterBar.classList.remove('top-nav-hidden'); isNavHidden = false; adjustLayoutAndStickyElements(); } } lastScrollTop = st <= 0 ? 0 : st; }
+    function adjustLayoutAndStickyElements() { if (!mainNav || !searchBarContainer || !timelineScrollbarContainerEl || !bottomNavBar || !mainContentPadding) { return; } const navActuallyHidden = appSettings.navigationStyle === 'scroll' && isNavHidden; const topNavHeight = navActuallyHidden ? 0 : mainNav.offsetHeight; let currentTopOffset = topNavHeight; if (empireFilterBar && !empireFilterBar.classList.contains('hidden')) { if(navActuallyHidden) empireFilterBar.style.top = `0px`; else empireFilterBar.style.top = `${topNavHeight}px`; currentTopOffset = navActuallyHidden ? empireFilterBar.offsetHeight : topNavHeight + empireFilterBar.offsetHeight; } if (searchBarContainer && !searchBarContainer.classList.contains('hidden')) { if(navActuallyHidden && (!empireFilterBar || empireFilterBar.classList.contains('hidden'))){ searchBarContainer.style.top = `0px`; } else if (navActuallyHidden && empireFilterBar && !empireFilterBar.classList.contains('hidden')){ searchBarContainer.style.top = `${empireFilterBar.offsetHeight}px`; } else if (!navActuallyHidden && empireFilterBar && !empireFilterBar.classList.contains('hidden')){ searchBarContainer.style.top = `${topNavHeight + empireFilterBar.offsetHeight}px`; } else { searchBarContainer.style.top = `${topNavHeight}px`; } } timelineScrollbarContainerEl.style.bottom = `${navActuallyHidden ? 0 : bottomNavBar.offsetHeight}px`; let totalBottomPadding = navActuallyHidden ? 10 : bottomNavBar.offsetHeight + 10; if (uniqueYearsForTimeline && uniqueYearsForTimeline.length > 0 && timelineScrollbarContainerEl && !timelineScrollbarContainerEl.classList.contains('hidden')) { requestAnimationFrame(() => { let timelineHeight = 0; if (window.getComputedStyle(timelineScrollbarContainerEl).display !== 'none' && timelineScrollbarContainerEl.offsetHeight) { timelineHeight = timelineScrollbarContainerEl.offsetHeight; } mainContentPadding.style.paddingBottom = `${totalBottomPadding + timelineHeight + 10}px`; }); } else { mainContentPadding.style.paddingBottom = `${totalBottomPadding}px`; } }
+    function showSearchBar() { if (!searchBarContainer || !searchBarContainer.classList.contains('hidden')) return; searchBarContainer.classList.remove('hidden'); adjustLayoutAndStickyElements(); if (searchInput) searchInput.focus(); searchBarContainer.scrollIntoView({ behavior: 'smooth', block: 'start' }); setTimeout(() => { document.addEventListener('click', handleClickOutsideSearch, true); }, 0); }
+    function hideSearchBar() { if (!searchBarContainer || searchBarContainer.classList.contains('hidden')) return; searchBarContainer.classList.add('hidden'); adjustLayoutAndStickyElements(); document.removeEventListener('click', handleClickOutsideSearch, true); updateBottomNavActiveState(currentActiveBottomNav === 'search' ? 'home' : currentActiveBottomNav); }
+    function toggleSearchBarVisibility() { if (!searchBarContainer) return; searchBarContainer.classList.contains('hidden') ? showSearchBar() : hideSearchBar(); }
+    function showEmpireFilterBar() { if (!empireFilterBar || !empireFilterBar.classList.contains('hidden')) return; empireFilterBar.classList.remove('hidden'); adjustLayoutAndStickyElements(); empireFilterBar.scrollIntoView({ behavior: 'smooth', block: 'start' });}
+    function hideEmpireFilterBar() { if (!empireFilterBar || empireFilterBar.classList.contains('hidden')) return; empireFilterBar.classList.add('hidden'); adjustLayoutAndStickyElements(); updateBottomNavActiveState(currentActiveBottomNav === 'toggleFilters' ? 'home' : currentActiveBottomNav); }
+    function toggleEmpireFilterBarVisibility() { if (!empireFilterBar) return; empireFilterBar.classList.contains('hidden') ? showEmpireFilterBar() : hideEmpireFilterBar(); }
+    function handleClickOutsideSearch(event) { const bottomNavSearchButton = document.querySelector('#bottomNavBar button[data-action="search"]'); if (searchBarContainer && !searchBarContainer.classList.contains('hidden') && !searchBarContainer.contains(event.target) && (!bottomNavSearchButton || !bottomNavSearchButton.contains(event.target))) { hideSearchBar(); } }
+    function openDeveloperModal() { if (developerModal) developerModal.classList.remove('hidden'); }
+    function closeDeveloperModal() { if (developerModal) developerModal.classList.add('hidden'); }
+    function handleExtraDetailsClick(event) { if (event) event.stopPropagation(); const h3Element = event.currentTarget; const encodedDetails = h3Element.dataset.extraDetails; const encodedProfileName = h3Element.dataset.profileName; if (encodedDetails && encodedProfileName) { try { const details = decodeURIComponent(encodedDetails); const profileName = decodeURIComponent(encodedProfileName); openExtraDetailsModalDirect(details, profileName); } catch (e) { console.error("Error decoding URI components:", e); openExtraDetailsModalDirect("তথ্য ডিকোড করতে সমস্যা হয়েছে।", "ত্রুটি"); } } else { console.error("Data attributes for extra details not found on H3 element."); openExtraDetailsModalDirect("তথ্য পাওয়া যায়নি।", "ত্রুটি"); } }
+    function openExtraDetailsModalDirect(detailsContent, profileNameString) { if (extraDetailsModalEl && extraDetailsModalContentEl && extraDetailsModalTitleEl) { extraDetailsModalTitleEl.textContent = `${profileNameString} - অতিরিক্ত বিবরণ`; extraDetailsModalContentEl.innerHTML = detailsContent || "কোনো অতিরিক্ত বিবরণ পাওয়া যায়নি।"; extraDetailsModalEl.classList.remove('hidden'); } else { console.error("ERROR: Extra details modal elements not found."); } }
+    function closeExtraDetailsModal() { if (extraDetailsModalEl) { extraDetailsModalEl.classList.add('hidden'); if (extraDetailsModalContentEl) extraDetailsModalContentEl.innerHTML = ""; } }
+    function openSettingsModal() { if (settingsModalEl) settingsModalEl.classList.remove('hidden'); if (typeof lucide !== 'undefined' && lucide.createIcons) lucide.createIcons({context: settingsModalEl}); }
+    function closeSettingsModal() { if (settingsModalEl) settingsModalEl.classList.add('hidden'); updateBottomNavActiveState(currentActiveBottomNav); }
+    function saveSettings() { localStorage.setItem('appSettings', JSON.stringify(appSettings)); }
+    function loadSettings() { const savedSettings = localStorage.getItem('appSettings'); if (savedSettings) { try { const parsedSettings = JSON.parse(savedSettings); appSettings = { ...appSettings, ...parsedSettings }; } catch(e) { console.error("Error loading settings:", e); } } if (typeof appSettings.showSpecialNotifications === 'undefined') appSettings.showSpecialNotifications = true; if (typeof appSettings.fontSize === 'undefined') appSettings.fontSize = 'medium'; if (typeof appSettings.navigationStyle === 'undefined') appSettings.navigationStyle = 'scroll'; if (typeof appSettings.cardTheme === 'undefined') appSettings.cardTheme = 'default'; }
+    function applyFontSize(size) { const body = document.body; body.classList.remove('font-size-small', 'font-size-medium', 'font-size-large'); if (size === 'small') body.classList.add('font-size-small'); else if (size === 'large') body.classList.add('font-size-large'); else body.classList.add('font-size-medium'); adjustLayoutAndStickyElements(); }
+    function applyNavigationStyle() { if (!mainNav || !bottomNavBar || !searchBarContainer || !empireFilterBar) return; if (appSettings.navigationStyle === 'scroll') { handleNavVisibilityOnScroll(); } else { mainNav.classList.remove('hidden-nav'); bottomNavBar.classList.remove('hidden-nav'); searchBarContainer.classList.remove('top-nav-hidden'); empireFilterBar.classList.remove('top-nav-hidden'); isNavHidden = false; } adjustLayoutAndStickyElements(); }
+    function applyCardTheme(themeName) { const allCards = document.querySelectorAll('.profile-plaque-container'); const themeClasses = ['theme-ancient-scroll', 'theme-royal-velvet', 'theme-marble-plaque', 'theme-dark-poster', 'theme-gradient-teal']; tealThemeCardIndex = 0; allCards.forEach(card => { themeClasses.forEach(cls => card.classList.remove(cls)); card.style.backgroundImage = ''; if (themeName && themeName !== 'default') { card.classList.add(themeName); if (themeName === 'theme-gradient-teal') { const gradient = gradientsForTealTheme[tealThemeCardIndex % gradientsForTealTheme.length]; const [fromColor, toColor] = gradient.match(/#\w+/g) || ['#1f4a4a', '#2d6966']; if (fromColor && toColor) { card.style.backgroundImage = `linear-gradient(to bottom right, ${fromColor}, ${toColor})`; } tealThemeCardIndex++; } } }); }
+    function closeSpecialDayNotification() { if (specialDayNotificationEl) { specialDayNotificationEl.classList.remove('show'); specialDayNotificationEl.classList.add('hidden'); specialDayNotificationEl.onclick = null; } }
+    function showSpecialDayNotification(profileName, eventDescription, eventType = "general") { if (specialDayNotificationEl && specialDayTitleEl && specialDayMessageEl) { specialDayTitleEl.textContent = `${profileName} এর জন্য বিশেষ দিন!`; if(profileName === "আজকের জন্য" && eventDescription === "কোনো বিশেষ নোটিশ নেই।") { specialDayTitleEl.textContent = "নোটিশ"; } else if (profileName === "নোটিশ" && eventDescription === "বিশেষ দিনের নোটিফিকেশন সেটিংসে বন্ধ করা আছে।") { specialDayTitleEl.textContent = "সেটিংস"; } specialDayMessageEl.textContent = eventDescription; const iconEl = specialDayNotificationEl.querySelector('i[data-lucide]'); if (iconEl) { let iconName = "calendar-heart"; let bgColor = "#FFD700"; let textColor = "#402010"; let borderColor = "#b8860b"; if (eventType === "birthday") { iconName = "cake"; bgColor = "#fdf2cc"; textColor = "#7a5508"; borderColor="#e6ca8b"; } else if (eventType === "death_anniversary") { iconName = "flower-2"; bgColor = "#e9ecef"; textColor = "#495057"; borderColor="#adb5bd"; } else if (eventType === "victory") { iconName = "trophy"; bgColor = "#d1e7dd"; textColor = "#0f5132"; borderColor="#a3cfbb"; } else if (eventType === "establishment") { iconName = "landmark"; bgColor = "#cfe2ff"; textColor = "#0a387d"; borderColor="#a9c7fb"; } else if (eventType === "general" && profileName === "নোটিশ") { iconName = "settings-2"; bgColor = "#e0e0e0"; } iconEl.setAttribute('data-lucide', iconName); specialDayNotificationEl.style.backgroundColor = bgColor; specialDayNotificationEl.style.color = textColor; specialDayNotificationEl.style.borderColor = borderColor; specialDayTitleEl.style.color = textColor; specialDayMessageEl.style.color = textColor; iconEl.style.color = textColor; const closeButtonIcon = specialDayNotificationEl.querySelector('button i[data-lucide]'); if(closeButtonIcon) closeButtonIcon.style.color = textColor; if (typeof lucide !== 'undefined' && lucide.createIcons) lucide.createIcons({ context: specialDayNotificationEl }); } specialDayNotificationEl.classList.remove('hidden'); specialDayNotificationEl.classList.add('show'); specialDayNotificationEl.onclick = () => { if(profileName !== "আজকের জন্য" && profileName !== "নোটিশ"){ const profileData = currentData.find(p => p.name === profileName); if (profileData) { const profileCards = Array.from(profileContainerEl.querySelectorAll('.profile-plaque-container')); const targetCard = profileCards.find(card => { const cardTitleEl = card.querySelector('.profile-main-title'); return cardTitleEl && cardTitleEl.textContent === profileName; }); if (targetCard) { let offset = 0; const mainNavIsEffectivelyVisible = mainNav && (appSettings.navigationStyle === 'fixed' || (appSettings.navigationStyle === 'scroll' && !isNavHidden)); if(mainNavIsEffectivelyVisible) offset += mainNav.offsetHeight; if (searchBarContainer && !searchBarContainer.classList.contains('hidden') && (!searchBarContainer.classList.contains('top-nav-hidden') || !mainNavIsEffectivelyVisible ) ) { offset += searchBarContainer.offsetHeight; } else if (empireFilterBar && !empireFilterBar.classList.contains('hidden') && (!empireFilterBar.classList.contains('top-nav-hidden') || !mainNavIsEffectivelyVisible ) ) { offset += empireFilterBar.offsetHeight; } offset += 20; const targetPosition = targetCard.getBoundingClientRect().top + window.pageYOffset - offset; window.scrollTo({ top: targetPosition, behavior: 'smooth' }); } } } closeSpecialDayNotification(); }; setTimeout(() => { if (specialDayNotificationEl.classList.contains('show')) { closeSpecialDayNotification(); } }, 7000); } }
+    function checkAndShowSpecialDayNotifications(forceShow = false) { if (!appSettings.showSpecialNotifications && !forceShow) { if (notificationBadgeEl) notificationBadgeEl.classList.add('hidden'); return; } const today = new Date(); const currentMonth = String(today.getMonth() + 1).padStart(2, '0'); const currentDay = String(today.getDate()).padStart(2, '0'); const currentYear = today.getFullYear(); const todayMMDD = `${currentMonth}-${currentDay}`; const todayYYYYMMDD = `${currentYear}-${currentMonth}-${currentDay}`; const todayKey = `specialNotifications_${todayYYYYMMDD}`; let shownToday = []; if (!forceShow) { try { const stored = localStorage.getItem(todayKey); if(stored) shownToday = JSON.parse(stored); } catch(e) { console.error("Error parsing shownToday from localStorage", e); shownToday = []; } } let notificationsToShow = []; let hasUnseenNotifications = false; currentData.forEach(profile => { if (profile.specialEvents && Array.isArray(profile.specialEvents)) { profile.specialEvents.forEach(event => { if (event.date && event.event_bn) { let eventMatchesToday = false; if (event.date.length === 5 && event.date === todayMMDD) { eventMatchesToday = true; } else if (event.date.length === 10 && event.date === todayYYYYMMDD) { eventMatchesToday = true; } if (eventMatchesToday) { const isAlreadyShown = shownToday.some(s => s.name === profile.name && s.event === event.event_bn && s.date === event.date); if (!isAlreadyShown) { notificationsToShow.push({ name: profile.name, event: event.event_bn, type: event.type || "general", date: event.date }); if (!forceShow) hasUnseenNotifications = true; } else if (forceShow) { notificationsToShow.push({ name: profile.name, event: event.event_bn, type: event.type || "general", date: event.date }); } } } }); } }); if (notificationBadgeEl) { if (hasUnseenNotifications && !forceShow) { notificationBadgeEl.classList.remove('hidden'); } else if (!forceShow) { notificationBadgeEl.classList.add('hidden'); } } if (notificationsToShow.length === 0 && forceShow) { showSpecialDayNotification("আজকের জন্য", "কোনো বিশেষ নোটিশ নেই।", "general"); return; } if (notificationsToShow.length > 0) { let notificationIndex = 0; const displayInterval = 7500; function displayNextNotification() { if (document.hidden) { setTimeout(displayNextNotification, displayInterval); return; } if (notificationIndex < notificationsToShow.length) { const currentNotification = notificationsToShow[notificationIndex]; showSpecialDayNotification(currentNotification.name, currentNotification.event, currentNotification.type); if (!forceShow) { const alreadyStored = shownToday.some(s => s.name === currentNotification.name && s.event === currentNotification.event && s.date === currentNotification.date); if (!alreadyStored) { shownToday.push({ name: currentNotification.name, event: currentNotification.event, date: currentNotification.date }); try { localStorage.setItem(todayKey, JSON.stringify(shownToday)); } catch (e) { console.error("Error saving to localStorage", e); } } } notificationIndex++; if (notificationIndex < notificationsToShow.length) { setTimeout(displayNextNotification, displayInterval); } } } displayNextNotification(); } }
+    function handleTopNavBellClick() { if (settingsModalEl && !settingsModalEl.classList.contains('hidden')) closeSettingsModal(); if (extraDetailsModalEl && !extraDetailsModalEl.classList.contains('hidden')) closeExtraDetailsModal(); if (developerModal && !developerModal.classList.contains('hidden')) closeDeveloperModal(); if (searchBarContainer && !searchBarContainer.classList.contains('hidden')) hideSearchBar(); if (empireFilterBar && !empireFilterBar.classList.contains('hidden')) hideEmpireFilterBar(); if (appSettings.showSpecialNotifications && currentData.length > 0) { checkAndShowSpecialDayNotifications(true); } else if (!appSettings.showSpecialNotifications) { showSpecialDayNotification("নোটিশ", "বিশেষ দিনের নোটিফিকেশন সেটিংসে বন্ধ করা আছে।", "general"); } else { showSpecialDayNotification("আজকের জন্য", "কোনো বিশেষ নোটিশ নেই অথবা ডেটা লোড হয়নি।", "general"); } if (notificationBadgeEl) { notificationBadgeEl.classList.add('hidden'); } }
+    function updateBottomNavActiveState(newActiveItemAction) { const buttons = bottomNavBar.querySelectorAll('button'); buttons.forEach(button => { if (button.dataset.action === newActiveItemAction) { button.classList.add('active-nav-item'); } else { button.classList.remove('active-nav-item'); } }); currentActiveBottomNav = newActiveItemAction; }
+    function handleBottomNavClick(action) { if (action !== 'toggleFilters' && empireFilterBar && !empireFilterBar.classList.contains('hidden')) hideEmpireFilterBar(); if (action !== 'search' && searchBarContainer && !searchBarContainer.classList.contains('hidden')) hideSearchBar(); if (action !== 'about' && developerModal && !developerModal.classList.contains('hidden')) closeDeveloperModal(); if (action !== 'settings' && settingsModalEl && !settingsModalEl.classList.contains('hidden')) closeSettingsModal(); if (extraDetailsModalEl && !extraDetailsModalEl.classList.contains('hidden')) closeExtraDetailsModal(); if (action !== 'settings' && action !== 'about') { updateBottomNavActiveState(action); } switch (action) { case 'home': refreshProfiles(); window.scrollTo({ top: 0, behavior: 'smooth' }); break; case 'search': toggleSearchBarVisibility(); if (searchBarContainer && !searchBarContainer.classList.contains('hidden')) { updateBottomNavActiveState('search'); } else { updateBottomNavActiveState(currentActiveBottomNav === 'search' ? 'home' : currentActiveBottomNav); } break; case 'toggleFilters': toggleEmpireFilterBarVisibility(); if (empireFilterBar && !empireFilterBar.classList.contains('hidden')) { updateBottomNavActiveState('toggleFilters'); } else { updateBottomNavActiveState(currentActiveBottomNav === 'toggleFilters' ? 'home' : currentActiveBottomNav); } break; case 'settings': openSettingsModal(); break; case 'about': openDeveloperModal(); break; } adjustLayoutAndStickyElements(); }
+    function populateTimelineScrollbar(profiles) { if (!timelineScrollbarEl || !timelineScrollbarContainerEl) { console.warn("Timeline elements not found."); return; } const yearItems = timelineScrollbarEl.querySelectorAll('.timeline-year-item'); yearItems.forEach(item => item.remove()); uniqueYearsForTimeline = []; if (!profiles || profiles.length === 0) { timelineScrollbarContainerEl.classList.add('hidden'); const backgroundLine = timelineScrollbarEl.querySelector('.timeline-background-line'); if (backgroundLine) backgroundLine.style.width = '0px'; adjustLayoutAndStickyElements(); return; } const yearsSet = new Set(); profiles.forEach(profile => { const primaryYear = getPrimaryYear(profile.years); if (primaryYear !== null) { yearsSet.add(primaryYear); } }); uniqueYearsForTimeline = Array.from(yearsSet).sort((a, b) => a - b); if (uniqueYearsForTimeline.length === 0) { timelineScrollbarContainerEl.classList.add('hidden'); const backgroundLine = timelineScrollbarEl.querySelector('.timeline-background-line'); if (backgroundLine) backgroundLine.style.width = '0px'; adjustLayoutAndStickyElements(); return; } uniqueYearsForTimeline.forEach(year => { const yearItem = document.createElement('div'); yearItem.classList.add('timeline-year-item'); yearItem.textContent = toBengaliNumerals(Math.abs(year)) + (year < 0 ? " পূঃ" : ""); yearItem.dataset.year = year; yearItem.addEventListener('click', () => { scrollToYear(year); document.querySelectorAll('#timelineScrollbar .timeline-year-item').forEach(el => el.classList.remove('active')); yearItem.classList.add('active'); yearItem.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' }); }); timelineScrollbarEl.appendChild(yearItem); }); const backgroundLine = timelineScrollbarEl.querySelector('.timeline-background-line'); if (backgroundLine && timelineScrollbarEl.firstChild !== backgroundLine) { timelineScrollbarEl.insertBefore(backgroundLine, timelineScrollbarEl.firstChild); } if (backgroundLine) { requestAnimationFrame(() => { const scrollWidth = timelineScrollbarEl.scrollWidth; const clientWidth = timelineScrollbarEl.clientWidth; backgroundLine.style.width = `${Math.max(scrollWidth, clientWidth)}px`; }); } timelineScrollbarContainerEl.classList.remove('hidden'); adjustLayoutAndStickyElements(); updateActiveYearOnScroll(); }
+    function scrollToYear(year) { const profileCards = profileContainerEl.querySelectorAll('.profile-plaque-container[data-primary-year]'); let targetCard = null; for (const card of profileCards) { const cardPrimaryYear = parseInt(card.dataset.primaryYear, 10); if (cardPrimaryYear === year) { targetCard = card; break; } } if (targetCard) { let offset = 0; const mainNavIsEffectivelyVisible = mainNav && (appSettings.navigationStyle === 'fixed' || (appSettings.navigationStyle === 'scroll' && !isNavHidden)); if (mainNavIsEffectivelyVisible) { offset = mainNav.offsetHeight; if (empireFilterBar && !empireFilterBar.classList.contains('hidden') && !empireFilterBar.classList.contains('top-nav-hidden')) { offset += empireFilterBar.offsetHeight; if (searchBarContainer && !searchBarContainer.classList.contains('hidden') && !searchBarContainer.classList.contains('top-nav-hidden')) { offset += searchBarContainer.offsetHeight; } } else if (searchBarContainer && !searchBarContainer.classList.contains('hidden') && !searchBarContainer.classList.contains('top-nav-hidden')) { offset += searchBarContainer.offsetHeight; } } else { if (empireFilterBar && !empireFilterBar.classList.contains('hidden') && empireFilterBar.classList.contains('top-nav-hidden')) { offset = empireFilterBar.offsetHeight; if (searchBarContainer && !searchBarContainer.classList.contains('hidden') && searchBarContainer.classList.contains('top-nav-hidden')) { const searchBarTopStyle = parseFloat(searchBarContainer.style.top); const empireFilterBarHeight = empireFilterBar.offsetHeight; if(searchBarTopStyle === empireFilterBarHeight) { offset += searchBarContainer.offsetHeight; } else { offset = Math.max(empireFilterBar.offsetHeight, searchBarContainer.offsetHeight) } } } else if (searchBarContainer && !searchBarContainer.classList.contains('hidden') && searchBarContainer.classList.contains('top-nav-hidden')) { offset = searchBarContainer.offsetHeight; } } offset += 20; const targetPosition = targetCard.getBoundingClientRect().top + window.pageYOffset - offset; window.scrollTo({ top: targetPosition, behavior: 'smooth' }); } }
+    const debouncedUpdateActiveYearOnScroll = debounce(updateActiveYearOnScroll, 150);
+    function updateActiveYearOnScroll() { if (!timelineScrollbarContainerEl || timelineScrollbarContainerEl.classList.contains('hidden') || !timelineScrollbarEl || !uniqueYearsForTimeline || uniqueYearsForTimeline.length === 0) { return; } let viewTopBoundary = 0; const mainNavIsEffectivelyVisible = mainNav && (appSettings.navigationStyle === 'fixed' || (appSettings.navigationStyle === 'scroll' && !isNavHidden)); if (mainNavIsEffectivelyVisible) { viewTopBoundary = mainNav.offsetHeight; if (empireFilterBar && !empireFilterBar.classList.contains('hidden') && !empireFilterBar.classList.contains('top-nav-hidden')) { viewTopBoundary += empireFilterBar.offsetHeight; if (searchBarContainer && !searchBarContainer.classList.contains('hidden') && !searchBarContainer.classList.contains('top-nav-hidden')) { viewTopBoundary += searchBarContainer.offsetHeight; } } else if (searchBarContainer && !searchBarContainer.classList.contains('hidden') && !searchBarContainer.classList.contains('top-nav-hidden')) { viewTopBoundary += searchBarContainer.offsetHeight; } } else { if (empireFilterBar && !empireFilterBar.classList.contains('hidden') && empireFilterBar.classList.contains('top-nav-hidden')) { viewTopBoundary = empireFilterBar.offsetHeight; if (searchBarContainer && !searchBarContainer.classList.contains('hidden') && searchBarContainer.classList.contains('top-nav-hidden')) { const searchBarTopStyle = parseFloat(searchBarContainer.style.top); const empireFilterBarHeight = empireFilterBar.offsetHeight; if (searchBarTopStyle === empireFilterBarHeight) { viewTopBoundary += searchBarContainer.offsetHeight; } else { viewTopBoundary = Math.max(empireFilterBar.offsetHeight, searchBarContainer.offsetHeight); } } } else if (searchBarContainer && !searchBarContainer.classList.contains('hidden') && searchBarContainer.classList.contains('top-nav-hidden')) { viewTopBoundary = searchBarContainer.offsetHeight; } } viewTopBoundary += 20; let currentActiveYear = null; const profileCards = Array.from(profileContainerEl.querySelectorAll('.profile-plaque-container[data-primary-year]')); let bestMatchCard = null; for (const card of profileCards) { const cardRect = card.getBoundingClientRect(); if (cardRect.top <= viewTopBoundary && cardRect.bottom > viewTopBoundary) { bestMatchCard = card; break; } if (!bestMatchCard && cardRect.top < window.innerHeight && cardRect.bottom > 0) { if(cardRect.top >= viewTopBoundary) { bestMatchCard = card; } else if (profileCards.indexOf(card) === 0 && cardRect.bottom > viewTopBoundary) { bestMatchCard = card; } } } if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 50 && profileCards.length > 0) { const lastCard = profileCards[profileCards.length - 1]; if (lastCard) { const lastCardRect = lastCard.getBoundingClientRect(); if(lastCardRect.top < window.innerHeight && lastCardRect.bottom > 0) { bestMatchCard = lastCard; } } } if (bestMatchCard) { currentActiveYear = parseInt(bestMatchCard.dataset.primaryYear, 10); } const yearItems = timelineScrollbarEl.querySelectorAll('.timeline-year-item'); let activeYearElement = null; yearItems.forEach(item => { const itemYear = parseInt(item.dataset.year, 10); if (itemYear === currentActiveYear) { item.classList.add('active'); activeYearElement = item; } else { item.classList.remove('active'); } }); if (activeYearElement) { const scrollbarRect = timelineScrollbarEl.getBoundingClientRect(); const activeItemRect = activeYearElement.getBoundingClientRect(); if (activeItemRect.left < scrollbarRect.left || activeItemRect.right > scrollbarRect.right) { activeYearElement.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' }); } } }
+    function handleWindowScroll() { if (appSettings.navigationStyle === 'scroll') { debouncedHandleNavVisibilityOnScroll(); } if (timelineScrollbarContainerEl && !timelineScrollbarContainerEl.classList.contains('hidden') && uniqueYearsForTimeline && uniqueYearsForTimeline.length > 0) { debouncedUpdateActiveYearOnScroll(); } }
+
+    document.addEventListener('DOMContentLoaded', async () => {
+        mainNav = document.getElementById('mainNav'); topNavBarLogo = document.getElementById('topNavBarLogo'); empireFilterBar = document.getElementById('empireFilterBar'); searchBarContainer = document.getElementById('searchBarContainer'); searchInput = document.getElementById('searchInput'); developerModal = document.getElementById('developerModal'); offlineMessageEl = document.getElementById('offlineMessage'); profileContainerEl = document.getElementById('profileContainer'); fullPageOfflineMessageEl = document.getElementById('fullPageOfflineMessage'); bottomNavBar = document.getElementById('bottomNavBar'); mainContentPadding = document.getElementById('mainContentPadding'); contentAreaEl = document.getElementById('contentArea'); timelineScrollbarContainerEl = document.getElementById('timelineScrollbarContainer'); timelineScrollbarEl = document.getElementById('timelineScrollbar'); extraDetailsModalEl = document.getElementById('extraDetailsModal'); extraDetailsModalContentEl = document.getElementById('extraDetailsModalContent'); extraDetailsModalTitleEl = document.getElementById('extraDetailsModalTitle'); settingsModalEl = document.getElementById('settingsModal'); specialDayNotificationToggleEl = document.getElementById('specialDayNotificationToggle'); fontSizeSelectorEl = document.getElementById('fontSizeSelector'); refreshDataButtonEl = document.getElementById('refreshDataButton'); navStyleScrollRadio = document.getElementById('navStyleScroll'); navStyleFixedRadio = document.getElementById('navStyleFixed'); specialDayNotificationEl = document.getElementById('specialDayNotification'); specialDayTitleEl = document.getElementById('specialDayTitle'); specialDayMessageEl = document.getElementById('specialDayMessage'); topNavBellButtonEl = document.getElementById('topNavBellButton'); notificationBadgeEl = document.getElementById('notificationBadge'); cardThemeRadioButtons = document.querySelectorAll('input[name="cardTheme"]');
+        if (!contentAreaEl || !extraDetailsModalEl || !extraDetailsModalContentEl || !extraDetailsModalTitleEl || !timelineScrollbarContainerEl || !timelineScrollbarEl || !settingsModalEl || !specialDayNotificationToggleEl || !fontSizeSelectorEl || !refreshDataButtonEl || !navStyleScrollRadio || !navStyleFixedRadio || !specialDayNotificationEl || !specialDayTitleEl || !specialDayMessageEl || !topNavBellButtonEl || !notificationBadgeEl || !cardThemeRadioButtons) { console.error("CRITICAL: One or more essential DOM elements are missing!"); }
+
+        loadSettings();
+        applyNavigationStyle(); 
+        applyFontSize(appSettings.fontSize);
+        applyCardTheme(appSettings.cardTheme); 
+
+        if (navStyleScrollRadio && navStyleFixedRadio) { if (appSettings.navigationStyle === 'scroll') navStyleScrollRadio.checked = true; else navStyleFixedRadio.checked = true; navStyleScrollRadio.addEventListener('change', () => { if (navStyleScrollRadio.checked) { appSettings.navigationStyle = 'scroll'; saveSettings(); applyNavigationStyle(); } }); navStyleFixedRadio.addEventListener('change', () => { if (navStyleFixedRadio.checked) { appSettings.navigationStyle = 'fixed'; saveSettings(); applyNavigationStyle(); } }); }
+        if (specialDayNotificationToggleEl) { specialDayNotificationToggleEl.checked = appSettings.showSpecialNotifications; specialDayNotificationToggleEl.addEventListener('change', (event) => { appSettings.showSpecialNotifications = event.target.checked; saveSettings(); if (!appSettings.showSpecialNotifications && specialDayNotificationEl && specialDayNotificationEl.classList.contains('show')) { closeSpecialDayNotification(); } if (currentData.length > 0) { checkAndShowSpecialDayNotifications(false); } }); }
+        if (fontSizeSelectorEl) { fontSizeSelectorEl.value = appSettings.fontSize; fontSizeSelectorEl.addEventListener('change', (event) => { appSettings.fontSize = event.target.value; saveSettings(); applyFontSize(appSettings.fontSize); }); }
+        if (cardThemeRadioButtons) { cardThemeRadioButtons.forEach(radio => { if (radio.value === appSettings.cardTheme) { radio.checked = true; } radio.addEventListener('change', (event) => { if (event.target.checked) { appSettings.cardTheme = event.target.value; saveSettings(); applyCardTheme(appSettings.cardTheme); renderProfiles(currentData); } }); }); }
+        if (refreshDataButtonEl) { refreshDataButtonEl.addEventListener('click', () => { const today = new Date(); const todayKey = `specialNotifications_${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`; localStorage.removeItem(todayKey); if (speechSynth && speechSynth.speaking) { speechSynth.cancel(); currentUtterance = null; } refreshProfiles(); closeSettingsModal(); }); }
+        if(bottomNavBar) updateBottomNavActiveState(currentActiveBottomNav);
+        await fetchSheetData(); 
+        if (currentData.length > 0) { checkAndShowSpecialDayNotifications(false); }
+        setTimeout(loadVoices, 100);
+        window.addEventListener('online', () => { /* ... */ }); window.addEventListener('offline', () => { /* ... */ });
+        if (typeof lucide !== 'undefined' && lucide.createIcons) { lucide.createIcons(); } else { console.error("Lucide not loaded."); setTimeout(() => { if (typeof lucide !== 'undefined' && lucide.createIcons) lucide.createIcons(); }, 500); }
+        adjustLayoutAndStickyElements(); updateActiveYearOnScroll(); 
+        if (searchInput) searchInput.addEventListener("input", debouncedSearchHandler); else console.warn("Search input not found.");
+        window.addEventListener('scroll', handleWindowScroll, { passive: true });
+    });
+    window.addEventListener('resize', debounce(() => { adjustLayoutAndStickyElements(); const backgroundLine = timelineScrollbarEl ? timelineScrollbarEl.querySelector('.timeline-background-line') : null; if (backgroundLine && timelineScrollbarEl && timelineScrollbarContainerEl && !timelineScrollbarContainerEl.classList.contains('hidden')) { requestAnimationFrame(() => { const scrollWidth = timelineScrollbarEl.scrollWidth; const clientWidth = timelineScrollbarEl.clientWidth; backgroundLine.style.width = `${Math.max(scrollWidth, clientWidth)}px`; }); } updateActiveYearOnScroll(); }, 150));
+</script>
+</body>
+</html>
